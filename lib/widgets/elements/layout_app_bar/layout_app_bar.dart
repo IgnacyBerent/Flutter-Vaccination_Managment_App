@@ -16,8 +16,9 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: GoogleFonts.lato(
-          fontSize: 24,
+          fontSize: 22,
           fontWeight: FontWeight.bold,
+          color: const Color.fromARGB(255, 0, 34, 8),
         ),
       ),
     );

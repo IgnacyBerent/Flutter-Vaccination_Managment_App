@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vaccination_managment_app/views/home/home/home_screen.dart';
 import 'package:vaccination_managment_app/views/login_register/login_screen.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/navigator_layout_template.dart';
 

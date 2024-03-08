@@ -8,7 +8,7 @@ class CenteredView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      padding: const EdgeInsets.fromLTRB(60, 100, 60, 30),
+      padding: const EdgeInsets.fromLTRB(50, 120, 50, 30),
       alignment: Alignment.topCenter,
       child: child,
     );

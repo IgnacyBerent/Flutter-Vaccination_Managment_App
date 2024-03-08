@@ -4,7 +4,7 @@ import 'package:vaccination_managment_app/views/home/profile/profile_screen.dart
 import 'package:vaccination_managment_app/views/home/vaccines/vaccines_screen.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/animated_background_container.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/centered_view.dart';
-import 'package:vaccination_managment_app/widgets/layout_template/layout_app_bar.dart';
+import 'package:vaccination_managment_app/widgets/elements/layout_app_bar/layout_app_bar.dart';
 
 class NavigatorLayoutTemplate extends StatefulWidget {
   const NavigatorLayoutTemplate({
