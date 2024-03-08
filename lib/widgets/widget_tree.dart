@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vaccination_managment_app/views/home/home_screen.dart';
+import 'package:vaccination_managment_app/views/home/home/home_screen.dart';
 import 'package:vaccination_managment_app/views/login_register/login_screen.dart';
+import 'package:vaccination_managment_app/widgets/layout_template/navigator_layout_template.dart';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
@@ -16,7 +17,7 @@ class _WidgetTreeState extends State<WidgetTree> {
       stream: null,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return const HomeScreen();
+          return const NavigatorLayoutTemplate();
         } else {
           return const LoginScreen();
         }

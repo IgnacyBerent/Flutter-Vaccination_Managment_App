@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen(this.selectPage, {Key? key}) : super(key: key);
+
+  final Function selectPage;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Login Page'),
-    );
+    return Text('home');
   }
 }
