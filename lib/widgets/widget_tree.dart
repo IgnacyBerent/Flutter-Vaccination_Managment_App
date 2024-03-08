@@ -18,7 +18,8 @@ class _WidgetTreeState extends State<WidgetTree> {
         if (snapshot.hasData) {
           return const NavigatorLayoutTemplate();
         } else {
-          return const LoginScreen();
+          return const NavigatorLayoutTemplate();
+          //return const LoginScreen();
         }
       },
     );

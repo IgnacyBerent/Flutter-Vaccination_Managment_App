@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaccination_managment_app/widgets/elements/buttons/my_icon_button.dart';
+import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template.dart';
 
 class RegisterScreen extends StatefulWidget {
