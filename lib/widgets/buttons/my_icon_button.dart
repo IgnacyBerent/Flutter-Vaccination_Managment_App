@@ -7,6 +7,8 @@ class MyIconButton extends StatelessWidget {
   final String placement;
   final VoidCallback onPressed;
   final bool isLoading;
+  final double width;
+  final double height;
 
   const MyIconButton({
     super.key,
@@ -15,13 +17,15 @@ class MyIconButton extends StatelessWidget {
     required this.placement,
     required this.onPressed,
     this.isLoading = false,
+    this.width = 170,
+    this.height = 50,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 170,
-      height: 50,
+      width: width,
+      height: height,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         child: isLoading
