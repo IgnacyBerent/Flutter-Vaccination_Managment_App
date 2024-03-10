@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_managment_app/views/my_calendar/my_calendar_screen.dart';
+import 'package:vaccination_managment_app/views/vaccination_history/vaccination_history_screen.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
-import 'package:vaccination_managment_app/widgets/buttons/my_text_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -11,21 +12,37 @@ class ProfileScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         MyIconButton(
-          icon: const Icon(Icons.vaccines),
-          buttonText: "My Vaccines",
+          icon: const Icon(Icons.timelapse),
+          buttonText: "Vaccination history",
           placement: 'right',
-          width: 220,
+          width: 260,
           height: 70,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return const VaccinationHistoryScreen();
+                },
+              ),
+            );
+          },
         ),
         const SizedBox(height: 15),
         MyIconButton(
           icon: const Icon(Icons.calendar_today),
           buttonText: "My Calendar",
           placement: 'right',
-          width: 220,
+          width: 260,
           height: 70,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return const MyCalendarScreen();
+                },
+              ),
+            );
+          },
         ),
         const SizedBox(height: 15),
         MyIconButton(
@@ -33,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
           onPressed: () {},
           icon: const Icon(Icons.logout),
           placement: 'right',
-          width: 220,
+          width: 260,
           height: 70,
         ),
       ],

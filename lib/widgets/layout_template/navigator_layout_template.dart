@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vaccination_managment_app/views/home/home/home_screen.dart';
-import 'package:vaccination_managment_app/views/home/profile/profile_screen.dart';
-import 'package:vaccination_managment_app/views/home/vaccines/vaccines_screen.dart';
+import 'package:vaccination_managment_app/views/profile/profile_screen.dart';
+import 'package:vaccination_managment_app/views/vaccines/vaccines_screen.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/animated_background_container.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/centered_view.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_app_bar.dart';
@@ -17,16 +16,16 @@ class NavigatorLayoutTemplate extends StatefulWidget {
 }
 
 class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
-  int _selectedPageIndex = 1;
+  int _selectedPageIndex = 0;
 
   void selectPage(int index) => setState(() => _selectedPageIndex = index);
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = HomeScreen(selectPage);
-    String activePageTitle = 'Home';
+    Widget activePage = const ProfileScreen();
+    String activePageTitle = 'Your profile';
 
-    if (_selectedPageIndex == 2) {
+    if (_selectedPageIndex == 1) {
       activePage = const VaccinesScreen();
       activePageTitle = 'Available vaccines';
     } else if (_selectedPageIndex == 0) {
@@ -40,7 +39,9 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
         title: activePageTitle,
       ),
       body: AnimatedBackgroundContainer(
-        child: CenteredView(child: activePage),
+        child: CenteredView(
+          child: activePage,
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color.fromARGB(255, 130, 201, 171),
@@ -48,14 +49,8 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
         currentIndex: _selectedPageIndex,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-            ),
+            icon: Icon(Icons.person),
             label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.vaccines),

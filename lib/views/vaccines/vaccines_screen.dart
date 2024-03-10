@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/models/vaccine.dart';
-import 'package:vaccination_managment_app/views/home/vaccines/vaccine_item.dart';
+import 'package:vaccination_managment_app/views/vaccines/vaccine_item.dart';
 
 class VaccinesScreen extends StatefulWidget {
   const VaccinesScreen({Key? key}) : super(key: key);
