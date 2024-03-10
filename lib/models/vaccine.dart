@@ -1,4 +1,4 @@
-enum Status {
+enum Obligation {
   obligatory,
   recommended,
 }
@@ -11,17 +11,19 @@ enum IntervalType {
 }
 
 class Vaccine {
+  final String id;
   final String name;
   final String type;
-  final Status status;
+  final Obligation obligation;
   final int numberOfDoses;
   final List<int> intervals;
   final IntervalType intervalType;
 
   Vaccine({
+    required this.id,
     required this.name,
     required this.type,
-    required this.status,
+    required this.obligation,
     required this.numberOfDoses,
     required this.intervals,
     required this.intervalType,
@@ -30,10 +32,12 @@ class Vaccine {
 
 Vaccine vaccineFromJson(Map<String, dynamic> json) {
   return Vaccine(
+    id: json['id'],
     name: json['name'],
     type: json['type'],
-    status:
-        json['status'] == 'obligatory' ? Status.obligatory : Status.recommended,
+    obligation: json['obligation'] == 'obligatory'
+        ? Obligation.obligatory
+        : Obligation.recommended,
     numberOfDoses: json['numberOfDoses'],
     intervals: List<int>.from(json['intervals']),
     intervalType: json['intervalType'] == 'days'
@@ -44,22 +48,4 @@ Vaccine vaccineFromJson(Map<String, dynamic> json) {
                 ? IntervalType.months
                 : IntervalType.years,
   );
-}
-
-Map<String, dynamic> vaccineToJson(Vaccine vaccine) {
-  return {
-    'name': vaccine.name,
-    'type': vaccine.type,
-    'status':
-        vaccine.status == Status.obligatory ? 'obligatory' : 'recommended',
-    'numberOfDoses': vaccine.numberOfDoses,
-    'intervals': vaccine.intervals,
-    'intervalType': vaccine.intervalType == IntervalType.days
-        ? 'days'
-        : vaccine.intervalType == IntervalType.weeks
-            ? 'weeks'
-            : vaccine.intervalType == IntervalType.months
-                ? 'months'
-                : 'years',
-  };
 }

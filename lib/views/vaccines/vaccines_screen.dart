@@ -12,17 +12,19 @@ class VaccinesScreen extends StatefulWidget {
 class _VaccinesScreenState extends State<VaccinesScreen> {
   List<Vaccine> vaccines = [
     Vaccine(
+      id: '1',
       name: 'Hepatitis B',
       type: 'Viral',
-      status: Status.obligatory,
+      obligation: Obligation.obligatory,
       numberOfDoses: 3,
       intervals: [0, 1, 6],
       intervalType: IntervalType.months,
     ),
     Vaccine(
+      id: '2',
       name: 'Rotavirus',
       type: 'Viral',
-      status: Status.recommended,
+      obligation: Obligation.recommended,
       numberOfDoses: 2,
       intervals: [2, 4],
       intervalType: IntervalType.months,
