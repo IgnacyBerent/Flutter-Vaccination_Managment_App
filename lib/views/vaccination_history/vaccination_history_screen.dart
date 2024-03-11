@@ -12,14 +12,51 @@ class VaccinationHistoryScreen extends StatefulWidget {
 }
 
 class _VaccinationHistoryScreenState extends State<VaccinationHistoryScreen> {
-  List<VaccineRecord> vaccines = [];
+  List<VaccineRecord> vaccines = [
+    VaccineRecord(
+      id: '1',
+      name: 'Hepatitis B',
+      type: 'Inactivated',
+      status: Status.undergoing,
+      doses: [
+        DateTime(2021, 1, 1),
+        DateTime(2021, 1, 15),
+        DateTime(2025, 2, 1),
+      ],
+      nextDose: DateTime(2025, 2, 1),
+    ),
+    VaccineRecord(
+      id: '2',
+      name: 'Hepatitis A',
+      type: 'Inactivated',
+      status: Status.done,
+      doses: [
+        DateTime(2021, 1, 1),
+        DateTime(2021, 1, 15),
+        DateTime(2021, 2, 1),
+      ],
+      nextDose: null,
+    ),
+    VaccineRecord(
+      id: '3',
+      name: 'Influenza',
+      type: 'Inactivated',
+      status: Status.undergoing,
+      doses: [
+        DateTime(2021, 1, 1),
+        DateTime(2021, 1, 15),
+        DateTime(2024, 4, 10),
+      ],
+      nextDose: DateTime(2024, 4, 10),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return LayoutTemplate(
       screenName: 'Vaccination History',
       child: ListView.builder(
-        itemCount: 0,
+        itemCount: 3,
         itemBuilder: (context, index) {
           return VaccineHistoryItem(
             vaccines[index],

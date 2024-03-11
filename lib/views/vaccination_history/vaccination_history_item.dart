@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vaccination_managment_app/models/vaccine_record.dart';
 import 'package:vaccination_managment_app/views/vaccination_history/vaccine_history_details.dart';
@@ -25,7 +26,9 @@ class VaccineHistoryItem extends StatelessWidget {
               width: 80,
               child: Icon(
                 size: 40,
-                vaccine.status == Status.done ? Icons.done : Icons.info,
+                vaccine.status == Status.done
+                    ? Icons.done
+                    : Icons.pending_actions,
                 color: vaccine.status == Status.done
                     ? Colors.green
                     : Colors.orange,
@@ -42,7 +45,9 @@ class VaccineHistoryItem extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  vaccine.type,
+                  vaccine.nextDose != null
+                      ? 'Next dose in: \n ${vaccine.nextDose!.difference(DateTime.now()).inDays} days'
+                      : 'Status: ${vaccine.status.name}',
                   style: GoogleFonts.karla(
                     fontSize: 18,
                   ),
