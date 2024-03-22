@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^6.2.0
   intl: ^0.19.0
+  http: ^1.2.1
+  flutter_secure_storage: ^4.2.1
+  jaguar_jwt: ^3.0.0
 
 dev_dependencies:
   flutter_test:
