@@ -1,24 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 
 import 'package:vaccination_managment_app/api/jwt_token.dart';
+import 'package:vaccination_managment_app/models/user.dart';
 
-class Authenticate {
-  final String baseUrl; // the base URL of your Django backend
-  final storage = new FlutterSecureStorage();
+class Authenticate extends ChangeNotifier {
+  final String baseUrl = ''; // the base URL of your Django backend
+  final storage = const FlutterSecureStorage();
   final JwtToken jwt = JwtToken();
-
-  Authenticate(this.baseUrl);
+  User? user;
 
   Future<bool> login(String username, String password) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/api/login/'), //TODO replace with your login endpoint
+      Uri.parse('$baseUrl/api/login/'), // replace with your login endpoint
       body: {'username': username, 'password': password},
     );
 
     if (response.statusCode == 200) {
-      await storage.write(key: 'jwt', value: response.body); // store the JWT
+      final responseBody = json.decode(response.body);
+      await jwt.saveToken(responseBody);
+      await getUserData();
       return true;
     } else {
       return false;
@@ -34,27 +37,24 @@ class Authenticate {
     );
 
     if (response.statusCode == 201) {
+      // login user
+      await login(username, password);
       return true;
     } else {
       return false;
     }
   }
 
-  Future<Map<String, dynamic>> getCurrentUser() async {
-    final token = await jwt.getToken();
-    final response = await http.get(
-      Uri.parse('$baseUrl/api/user/'), //TODO replace with your user endpoint
-      headers: {'Authorization': 'Bearer $token'},
-    );
-
-    if (response.statusCode == 200) {
-      return json.decode(response.body);
-    } else {
-      throw Exception('Failed to load user');
-    }
+  Future<void> getUserData() async {
+    final userData = await jwt.getUserData();
+    user = User.fromJson(userData);
   }
 
   Future<void> logout() async {
-    await storage.delete(key: 'jwt');
+    await jwt.deleteToken();
+  }
+
+  User? get currentUser {
+    return user;
   }
 }

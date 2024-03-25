@@ -28,24 +28,22 @@ class Vaccine {
     required this.intervals,
     required this.intervalType,
   });
-}
 
-Vaccine vaccineFromJson(Map<String, dynamic> json) {
-  return Vaccine(
-    id: json['id'],
-    name: json['name'],
-    type: json['type'],
-    obligation: json['obligation'] == 'obligatory'
-        ? Obligation.obligatory
-        : Obligation.recommended,
-    numberOfDoses: json['numberOfDoses'],
-    intervals: List<int>.from(json['intervals']),
-    intervalType: json['intervalType'] == 'days'
-        ? IntervalType.days
-        : json['intervalType'] == 'weeks'
-            ? IntervalType.weeks
-            : json['intervalType'] == 'months'
-                ? IntervalType.months
-                : IntervalType.years,
-  );
+  factory Vaccine.fromJson(Map<String, dynamic> json) {
+    return Vaccine(
+      id: json['id'].toString(),
+      name: json['name'],
+      type: json['type'],
+      obligation: json['status'] == 'mandatory'
+          ? Obligation.obligatory
+          : Obligation.recommended,
+      numberOfDoses: json['quantity_of_doses'],
+      intervals: (json['interval'] as String)
+          .split(', ')
+          .map((str) => int.parse(str))
+          .toList(),
+      intervalType:
+          json['period'] == 'MO' ? IntervalType.months : IntervalType.years,
+    );
+  }
 }

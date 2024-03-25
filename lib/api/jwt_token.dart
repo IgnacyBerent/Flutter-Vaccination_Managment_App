@@ -7,6 +7,17 @@ class JwtToken {
   final String baseUrl = '';
   final storage = const FlutterSecureStorage();
 
+  Future<void> saveToken(Map<String, dynamic> loginResponse) async {
+    await storage.write(
+      key: 'jwt',
+      value: loginResponse['access'],
+    ); // store the access token
+    await storage.write(
+      key: 'refresh_jwt',
+      value: loginResponse['refresh'],
+    ); // store the refresh token
+  }
+
   Future<String?> getToken() async {
     return await storage.read(key: 'jwt');
   }
@@ -49,5 +60,28 @@ class JwtToken {
     } else {
       //TODO Handle the error here
     }
+  }
+
+  Future<void> deleteToken() async {
+    await storage.delete(key: 'jwt');
+    await storage.delete(key: 'refresh_jwt');
+  }
+
+  Future<Map<String, dynamic>> getUserData() async {
+    final token = await getToken();
+    if (token == null) {
+      throw Exception('token not found');
+    }
+    final parts = token.split('.');
+    if (parts.length != 3) {
+      throw Exception('invalid token');
+    }
+
+    final payload = parts[1];
+    final normalized = base64Url.normalize(payload);
+    final resp = utf8.decode(base64Url.decode(normalized));
+
+    final payloadMap = json.decode(resp);
+    return payloadMap;
   }
 }
