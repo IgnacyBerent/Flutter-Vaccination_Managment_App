@@ -13,7 +13,9 @@ void vaccineDetails(BuildContext context, Vaccine vaccine) async {
             Text('Type: ${vaccine.type}'),
             Text('Status: ${vaccine.obligation.name}'),
             Text('Number of doses: ${vaccine.numberOfDoses}'),
-            Text('Intervals: ${vaccine.intervals.join(', ')}'),
+            vaccine.intervals == null
+                ? const Text('Interval: -')
+                : Text('Intervals: ${vaccine.intervals!.join(', ')}'),
             Text('Interval type: ${vaccine.intervalType.name}'),
           ],
         ),

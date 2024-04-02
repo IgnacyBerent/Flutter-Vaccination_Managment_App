@@ -4,11 +4,21 @@ enum Obligation {
 }
 
 enum IntervalType {
+  oneTime,
   days,
   weeks,
   months,
   years,
 }
+
+Map intervalTypeMap = {
+  null: IntervalType.oneTime,
+  "NL": IntervalType.oneTime,
+  "DY": IntervalType.days,
+  "WS": IntervalType.weeks,
+  "MO": IntervalType.months,
+  "YR": IntervalType.years,
+};
 
 class Vaccine {
   final String id;
@@ -16,7 +26,7 @@ class Vaccine {
   final String type;
   final Obligation obligation;
   final int numberOfDoses;
-  final List<int> intervals;
+  final List<int>? intervals;
   final IntervalType intervalType;
 
   Vaccine({
@@ -38,12 +48,13 @@ class Vaccine {
           ? Obligation.obligatory
           : Obligation.recommended,
       numberOfDoses: json['quantity_of_doses'],
-      intervals: (json['interval'] as String)
-          .split(', ')
-          .map((str) => int.parse(str))
-          .toList(),
-      intervalType:
-          json['period'] == 'MO' ? IntervalType.months : IntervalType.years,
+      intervals: json['interval'] == "NL"
+          ? null
+          : (json['interval'] as String)
+              .split(', ')
+              .map((str) => int.parse(str))
+              .toList(),
+      intervalType: intervalTypeMap[json['interval_type']] as IntervalType,
     );
   }
 }
