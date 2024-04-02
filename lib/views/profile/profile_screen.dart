@@ -11,8 +11,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Authenticate auth = Authenticate();
 
-    void logout() {
-      auth.logout();
+    void logout() async {
+      await auth.logout();
     }
 
     return Column(

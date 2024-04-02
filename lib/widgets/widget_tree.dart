@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/api/jwt_token.dart';
 import 'package:vaccination_managment_app/views/login_register/login_screen.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/navigator_layout_template.dart';
+import 'dart:async';
 
 class WidgetTree extends StatefulWidget {
   const WidgetTree({super.key});
@@ -11,18 +12,29 @@ class WidgetTree extends StatefulWidget {
 }
 
 class _WidgetTreeState extends State<WidgetTree> {
-  late Future<bool> isTokenExpired;
+  StreamController<bool> tokenController = StreamController<bool>();
+  Timer? timer;
 
   @override
   void initState() {
     super.initState();
-    isTokenExpired = JwtToken().isTokenExpired();
+    timer = Timer.periodic(const Duration(seconds: 3), (timer) async {
+      bool isTokenExpired = await JwtToken().isTokenExpired();
+      tokenController.add(isTokenExpired);
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    tokenController.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: isTokenExpired,
+    return StreamBuilder<bool>(
+      stream: tokenController.stream,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();

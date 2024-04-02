@@ -13,7 +13,7 @@ class Authenticate extends ChangeNotifier {
   final JwtToken jwt = JwtToken();
   User? user;
 
-  Future<bool> login(String username, String password) async {
+  Future<void> login(String username, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/login/'),
       body: {'username': username, 'password': password},
@@ -23,24 +23,31 @@ class Authenticate extends ChangeNotifier {
       final responseBody = json.decode(response.body);
       await jwt.saveToken(responseBody);
       await getUserData();
-      return true;
     } else {
-      return false;
+      if (response.statusCode == 401) {
+        throw Exception('Invalid credentials');
+      } else if (response.statusCode == 400) {
+        throw Exception('Bad request');
+      } else {
+        throw Exception('Failed to login');
+      }
     }
   }
 
-  Future<bool> register(String username, String email, String password) async {
+  Future<void> register(String username, String email, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/register/'),
       body: {'username': username, 'email': email, 'password': password},
     );
 
     if (response.statusCode == 201) {
-      // login user
       await login(username, password);
-      return true;
     } else {
-      return false;
+      if (response.statusCode == 400) {
+        throw Exception('Bad request');
+      } else {
+        throw Exception('Failed to register');
+      }
     }
   }
 
