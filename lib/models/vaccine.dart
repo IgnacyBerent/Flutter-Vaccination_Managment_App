@@ -54,7 +54,7 @@ class Vaccine {
               .split(', ')
               .map((str) => int.parse(str))
               .toList(),
-      intervalType: intervalTypeMap[json['interval_type']] as IntervalType,
+      intervalType: intervalTypeMap[json['period']] as IntervalType,
     );
   }
 }
