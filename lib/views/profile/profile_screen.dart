@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_managment_app/api/auth.dart';
 import 'package:vaccination_managment_app/views/my_calendar/my_calendar_screen.dart';
 import 'package:vaccination_managment_app/views/vaccination_history/vaccination_history_screen.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
@@ -8,6 +9,12 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Authenticate auth = Authenticate();
+
+    void logout() {
+      auth.logout();
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -47,7 +54,7 @@ class ProfileScreen extends StatelessWidget {
         const SizedBox(height: 15),
         MyIconButton(
           buttonText: "Log Out",
-          onPressed: () {},
+          onPressed: logout,
           icon: const Icon(Icons.logout),
           placement: 'right',
           width: 260,

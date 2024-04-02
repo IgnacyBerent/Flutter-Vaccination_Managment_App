@@ -4,10 +4,11 @@ import 'dart:convert';
 import 'package:vaccination_managment_app/models/vaccine.dart';
 
 class DatabaseApi {
-  final String url = "http://";
+  final String url =
+      "https://vaccinatemanagmentbackend-production.up.railway.app";
 
   Future<List<Vaccine>> fetchVaccines() async {
-    final response = await http.get(Uri.parse(url + '/vaccines/list'));
+    final response = await http.get(Uri.parse('$url/vaccinate/list/'));
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       return jsonResponse.map((item) => Vaccine.fromJson(item)).toList();

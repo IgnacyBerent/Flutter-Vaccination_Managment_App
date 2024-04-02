@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:vaccination_managment_app/api/auth.dart';
+import 'package:vaccination_managment_app/api/jwt_token.dart';
 import 'package:vaccination_managment_app/views/login_register/login_screen.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/navigator_layout_template.dart';
 
@@ -12,24 +11,23 @@ class WidgetTree extends StatefulWidget {
 }
 
 class _WidgetTreeState extends State<WidgetTree> {
-  late Future<void> _getUserData;
+  late Future<bool> isTokenExpired;
 
   @override
   void initState() {
     super.initState();
-    _getUserData =
-        Provider.of<Authenticate>(context, listen: false).getUserData();
+    isTokenExpired = JwtToken().isTokenExpired();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _getUserData,
+      future: isTokenExpired,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator(); // show a loading spinner while waiting
+          return const CircularProgressIndicator();
         } else {
-          if (Provider.of<Authenticate>(context).currentUser != null) {
+          if (snapshot.data == false) {
             return const NavigatorLayoutTemplate();
           } else {
             return const LoginScreen();

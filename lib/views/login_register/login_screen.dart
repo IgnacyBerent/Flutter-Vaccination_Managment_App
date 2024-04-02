@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_managment_app/api/auth.dart';
 import 'package:vaccination_managment_app/views/login_register/register_screen.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template.dart';
@@ -12,60 +13,49 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  var _enteredEmail = '';
+  var _enteredUsername = '';
   var _enteredPassword = '';
   var _isLoading = false;
   String? errorMessage = '';
   bool _obscureText = true;
+  final Authenticate auth = Authenticate();
 
-  void _signIn() {}
+  Future<void> _signIn() async {
+    FocusScope.of(context).unfocus();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        await auth.login(_enteredUsername, _enteredPassword);
+      } catch (e) {
+        setState(() {
+          _isLoading = false;
+          errorMessage = e.toString();
+        });
 
-  //Future<void> _signIn() async {
-  //  FocusScope.of(context).unfocus(); // close keyboard
-//
-  //  if (_formKey.currentState!.validate()) {
-  //    _formKey.currentState!.save();
-  //    setState(() {
-  //      _isLoading = true;
-  //    });
-  //    try {
-  //      await Auth().signWithEmailAndPassword(
-  //          email: _enteredEmail, password: _enteredPassword);
-  //    } on FirebaseAuthException catch (e) {
-  //      setState(() {
-  //        _isLoading = false;
-  //        if (e.code == 'invalid-email') {
-  //          errorMessage = 'Invalid email adress.';
-  //        } else if (e.code == 'invalid-credential') {
-  //          errorMessage = 'Wrong password';
-  //        } else {
-  //          errorMessage = e.message;
-  //        }
-  //      });
-//
-  //      // Show dialog if login fails
-//
-  //      if (!context.mounted) {
-  //        return;
-  //      }
-  //      showDialog(
-  //        context: context,
-  //        builder: (ctx) => AlertDialog(
-  //          title: const Text('Login Failed'),
-  //          content: Text(errorMessage!),
-  //          actions: <Widget>[
-  //            TextButton(
-  //              child: const Text('Okay'),
-  //              onPressed: () {
-  //                Navigator.of(ctx).pop();
-  //              },
-  //            ),
-  //          ],
-  //        ),
-  //      );
-  //    }
-  //  }
-  //}
+        if (!context.mounted) {
+          return;
+        }
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('Login Failed'),
+            content: Text(errorMessage!),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Okay'),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
                 return null;
               },
-              onSaved: (value) => _enteredEmail = value!,
+              onSaved: (value) => _enteredUsername = value!,
             ),
             const SizedBox(height: 12),
             TextFormField(

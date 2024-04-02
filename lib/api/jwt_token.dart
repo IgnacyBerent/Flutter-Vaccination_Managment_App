@@ -11,11 +11,11 @@ class JwtToken {
     await storage.write(
       key: 'jwt',
       value: loginResponse['access'],
-    ); // store the access token
+    );
     await storage.write(
       key: 'refresh_jwt',
       value: loginResponse['refresh'],
-    ); // store the refresh token
+    );
   }
 
   Future<String?> getToken() async {
