@@ -6,7 +6,7 @@ class JwtToken {
   final String baseUrl = '';
   final storage = const FlutterSecureStorage();
 
-  Future<void> saveToken(Map<String, dynamic> loginResponse) async {
+  Future<void> saveTokens(Map<String, dynamic> loginResponse) async {
     await storage.write(
       key: 'jwt',
       value: loginResponse['access'],
@@ -15,6 +15,10 @@ class JwtToken {
       key: 'refresh_jwt',
       value: loginResponse['refresh'],
     );
+  }
+
+  Future<void> updateToken(String token) async {
+    await storage.write(key: 'jwt', value: token);
   }
 
   Future<String?> getToken() async {

@@ -24,9 +24,17 @@ class _WidgetTreeState extends State<WidgetTree> {
       bool isTokenExpired = await JwtToken().isTokenExpired();
       if (isTokenExpired) {
         bool isTokenRefreshed = await auth.refreshToken();
-        tokenController.add(!isTokenRefreshed);
+        if (mounted) {
+          setState(() {
+            tokenController.add(!isTokenRefreshed);
+          });
+        }
       } else {
-        tokenController.add(false);
+        if (mounted) {
+          setState(() {
+            tokenController.add(false);
+          });
+        }
       }
     });
   }
@@ -34,6 +42,7 @@ class _WidgetTreeState extends State<WidgetTree> {
   @override
   void dispose() {
     timer?.cancel();
+    timer = null;
     tokenController.close();
     super.dispose();
   }

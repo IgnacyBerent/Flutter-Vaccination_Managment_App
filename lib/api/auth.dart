@@ -23,7 +23,7 @@ class Authenticate extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
-      await jwt.saveToken(responseBody);
+      await jwt.saveTokens(responseBody);
       await getUserData();
     } else {
       if (response.statusCode == 401) {
@@ -39,7 +39,12 @@ class Authenticate extends ChangeNotifier {
   Future<void> register(String username, String email, String password) async {
     final response = await http.post(
       Uri.parse('$baseUrl/register/'),
-      body: {'username': username, 'email': email, 'password': password},
+      body: {
+        'username': username,
+        'email': email,
+        'password': password,
+        'password2': password
+      },
     );
 
     if (response.statusCode == 201) {
@@ -67,6 +72,7 @@ class Authenticate extends ChangeNotifier {
   }
 
   Future<bool> refreshToken() async {
+    log('Refreshing token');
     String? rt = await jwt.getRefreshToken();
     if (rt == null) {
       log('No refresh token found');
@@ -80,7 +86,7 @@ class Authenticate extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
-      await jwt.saveToken(responseBody);
+      await jwt.updateToken(responseBody['access']);
       await getUserData();
       return true;
     } else {
