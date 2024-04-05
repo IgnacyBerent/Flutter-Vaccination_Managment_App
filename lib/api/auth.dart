@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -62,5 +64,33 @@ class Authenticate extends ChangeNotifier {
 
   User? get currentUser {
     return user;
+  }
+
+  Future<bool> refreshToken() async {
+    String? rt = await jwt.getRefreshToken();
+    if (rt == null) {
+      log('No refresh token found');
+      return false;
+    }
+
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/token/refresh/'),
+      body: {'refresh': rt},
+    );
+
+    if (response.statusCode == 200) {
+      final responseBody = json.decode(response.body);
+      await jwt.saveToken(responseBody);
+      await getUserData();
+      return true;
+    } else {
+      if (response.statusCode == 400) {
+        log('Bad request');
+        return false;
+      } else {
+        log('Failed to refresh token');
+        return false;
+      }
+    }
   }
 }
