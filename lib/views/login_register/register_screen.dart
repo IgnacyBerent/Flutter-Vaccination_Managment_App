@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_managment_app/api/auth.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template.dart';
 
@@ -10,7 +11,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  // TODO: implement auth and db
+  Authenticate auth = Authenticate();
   final _formKey = GlobalKey<FormState>();
   var _isLoading = false;
   final _passwordController = TextEditingController();
@@ -21,60 +22,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool _obscureText = true;
 
-  void _signUp() {}
+  void _signUp() async {
+    FocusScope.of(context).unfocus(); // close keyboard
 
-  //Future<void> _signUp() async {
-  //  FocusScope.of(context).unfocus(); // close keyboard
-//
-  //  if (_formKey.currentState!.validate()) {
-  //    _formKey.currentState!.save();
-  //    setState(() {
-  //      _isLoading = true;
-  //    });
-//
-  //    try {
-  //      await Auth().createUserWithEmailAndPassword(
-  //          email: _enteredEmail, password: _enteredPassword);
-//
-  //      final User? user = _auth.currentUser;
-  //      if (user != null) {
-  //        await _db.createNewUser(
-  //          uid: user.uid,
-  //          weight: _enteredWeight,
-  //          height: _enteredHeight,
-  //        );
-  //      }
-  //      if (!context.mounted) {
-  //        return;
-  //      }
-  //      Navigator.pop(context);
-  //    } on FirebaseAuthException catch (e) {
-  //      setState(() {
-  //        _isLoading = false;
-  //        errorMessage = e.message;
-  //      });
-//
-  //      if (!context.mounted) {
-  //        return;
-  //      }
-  //      showDialog(
-  //        context: context,
-  //        builder: (ctx) => AlertDialog(
-  //          title: const Text('Login Failed'),
-  //          content: Text(errorMessage!),
-  //          actions: <Widget>[
-  //            TextButton(
-  //              child: const Text('Okay'),
-  //              onPressed: () {
-  //                Navigator.of(ctx).pop();
-  //              },
-  //            ),
-  //          ],
-  //        ),
-  //      );
-  //    }
-  //  }
-  //}
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        await auth.register(
+          _enteredUsername,
+          _enteredEmail,
+          _enteredPassword,
+        );
+        if (!context.mounted) {
+          return;
+        }
+      } on Exception catch (e) {
+        setState(() {
+          _isLoading = false;
+          errorMessage = e.toString();
+        });
+
+        if (!context.mounted) {
+          return;
+        }
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text('Registration Failed'),
+            content: Text(errorMessage!),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Okay'),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
 
   @override
   void dispose() {
