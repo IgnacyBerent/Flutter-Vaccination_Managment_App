@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vaccination_managment_app/models/mappings/vaccine_obligation_icon_map.dart';
 import 'package:vaccination_managment_app/models/vaccine.dart';
 import 'package:vaccination_managment_app/views/vaccines/vaccine_details.dart';
 
@@ -23,15 +24,7 @@ class VaccineItem extends StatelessWidget {
           children: [
             SizedBox(
               width: 80,
-              child: Icon(
-                size: 40,
-                vaccine.obligation == Obligation.obligatory
-                    ? Icons.warning
-                    : Icons.info,
-                color: vaccine.obligation == Obligation.obligatory
-                    ? Colors.red
-                    : Colors.blue,
-              ),
+              child: vaccineObligationIconMap[vaccine.obligation] as Icon,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

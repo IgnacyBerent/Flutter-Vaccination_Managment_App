@@ -1,0 +1,4 @@
+enum Obligation {
+  obligatory,
+  recommended,
+}

@@ -1,24 +1,6 @@
-enum Obligation {
-  obligatory,
-  recommended,
-}
-
-enum IntervalType {
-  oneTime,
-  days,
-  weeks,
-  months,
-  years,
-}
-
-Map intervalTypeMap = {
-  null: IntervalType.oneTime,
-  "NL": IntervalType.oneTime,
-  "DY": IntervalType.days,
-  "WS": IntervalType.weeks,
-  "MO": IntervalType.months,
-  "YR": IntervalType.years,
-};
+import 'package:vaccination_managment_app/models/mappings/interval_type_map.dart';
+import 'package:vaccination_managment_app/models/types/interval_type.dart';
+import 'package:vaccination_managment_app/models/types/obligation.dart';
 
 class Vaccine {
   final String id;
@@ -50,10 +32,13 @@ class Vaccine {
       numberOfDoses: json['quantity_of_doses'],
       intervals: json['interval'] == "NL"
           ? null
-          : (json['interval'] as String)
-              .split(', ')
-              .map((str) => int.parse(str))
-              .toList(),
+          : (json['interval'] as String).split(',').map((str) {
+              try {
+                return int.parse(str);
+              } catch (e) {
+                return 0; // Default value
+              }
+            }).toList(),
       intervalType: intervalTypeMap[json['period']] as IntervalType,
     );
   }
