@@ -1,15 +1,16 @@
 import 'package:vaccination_managment_app/models/mappings/interval_type_map.dart';
-import 'package:vaccination_managment_app/models/types/interval_type.dart';
-import 'package:vaccination_managment_app/models/types/obligation.dart';
+import 'package:vaccination_managment_app/models/mappings/obligation_map.dart';
+import 'package:vaccination_managment_app/models/types/vaccine_interval_type.dart';
+import 'package:vaccination_managment_app/models/types/vaccine_obligation.dart';
 
 class Vaccine {
-  final String id;
+  final int id;
   final String name;
   final String type;
-  final Obligation obligation;
+  final VaccineObligation obligation;
   final int numberOfDoses;
   final List<int>? intervals;
-  final IntervalType intervalType;
+  final VaccineIntervalType intervalType;
 
   Vaccine({
     required this.id,
@@ -23,12 +24,10 @@ class Vaccine {
 
   factory Vaccine.fromJson(Map<String, dynamic> json) {
     return Vaccine(
-      id: json['id'].toString(),
+      id: json['id'],
       name: json['name'],
       type: json['type'],
-      obligation: json['status'] == 'mandatory'
-          ? Obligation.obligatory
-          : Obligation.recommended,
+      obligation: obligationMap[json['status']] as VaccineObligation,
       numberOfDoses: json['quantity_of_doses'],
       intervals: json['interval'] == "NL"
           ? null
@@ -39,7 +38,7 @@ class Vaccine {
                 return 0; // Default value
               }
             }).toList(),
-      intervalType: intervalTypeMap[json['period']] as IntervalType,
+      intervalType: intervalTypeMap[json['period']] as VaccineIntervalType,
     );
   }
 }

@@ -1,22 +1,33 @@
-enum Status {
-  done,
-  undergoing,
-}
+import 'package:vaccination_managment_app/models/types/vaccine_status.dart';
 
 class VaccineRecord {
-  final String id;
+  final int id;
   final String name;
-  final String type;
-  final Status status;
-  final List<DateTime?> doses;
-  final DateTime? nextDose;
+  final VaccineStatus status;
+  final int dose;
+  final List<DateTime> doseDates;
 
   VaccineRecord({
     required this.id,
     required this.name,
-    required this.type,
     required this.status,
-    required this.doses,
-    required this.nextDose,
+    required this.dose,
+    required this.doseDates,
   });
+
+  factory VaccineRecord.fromJson(Map<String, dynamic> json) {
+    return VaccineRecord(
+      id: json['id'],
+      name: json['vaccine'],
+      status: json['status'] == 'done'
+          ? VaccineStatus.done
+          : json['status'] == 'pending'
+              ? VaccineStatus.pending
+              : VaccineStatus.canceled,
+      dose: json['dose'],
+      doseDates: (json['all_dates'] as List)
+          .map((date) => DateTime.parse(date))
+          .toList(),
+    );
+  }
 }
