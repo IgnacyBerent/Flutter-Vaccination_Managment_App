@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:vaccination_managment_app/models/types/vaccine_status.dart';
 import 'package:vaccination_managment_app/models/vaccine_record.dart';
 
 void vaccineHistoryDetails(BuildContext context, VaccineRecord vaccine) async {
+  final dateFormat = DateFormat('dd-MM-yyyy');
+  final formattedDate = dateFormat.format(vaccine.doseDates[vaccine.dose]);
+
   return showDialog(
     context: context,
     builder: (context) {
@@ -11,29 +15,25 @@ void vaccineHistoryDetails(BuildContext context, VaccineRecord vaccine) async {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Type: ${vaccine.type}'),
             Text('Status: ${vaccine.status.name}'),
-            vaccine.status == Status.done
-                ? Text('Next dose: ${vaccine.nextDose}')
+            vaccine.status != VaccineStatus.done
+                ? Text('Next dose at: $formattedDate')
                 : const SizedBox(),
             const Text('Doses:'),
-            for (var doseEntry in vaccine.doses.asMap().entries)
-              doseEntry.value != null
-                  ? Text(
-                      '${doseEntry.key + 1}: ${DateFormat('dd/MM/yyyy').format(doseEntry.value!)}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        // if already taken show in green
-                        color: DateTime.now().isAfter(doseEntry.value!)
-                            ? Colors.green
-                            : null,
-                      ),
-                    )
-                  : Text('${doseEntry.key + 1}: Not added yet'),
+            for (var doseEntry in vaccine.doseDates.asMap().entries)
+              Text(
+                '${doseEntry.key + 1}: ${DateFormat('dd/MM/yyyy').format(doseEntry.value)}',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: DateTime.now().isAfter(doseEntry.value)
+                      ? Colors.green
+                      : null,
+                ),
+              ),
           ],
         ),
         actions: [
-          vaccine.status == Status.done
+          vaccine.status == VaccineStatus.done
               ? const SizedBox()
               : TextButton(
                   onPressed: () {

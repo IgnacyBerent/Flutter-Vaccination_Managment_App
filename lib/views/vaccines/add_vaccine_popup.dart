@@ -39,16 +39,26 @@ void addVaccinePopup(BuildContext context, int id) {
           ),
           TextButton(
             child: const Text('Submit'),
-            onPressed: () {
+            onPressed: () async {
               final inputDate = DateFormat('yyyy-MM-dd').format(
                 DateFormat('dd/MM/yyyy').parse(controller.text),
               );
-              db.addVaccineRecord(id, inputDate);
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Vaccine added successfully!')),
-              );
+              try {
+                await db.addVaccineRecord(id, inputDate);
+                if (!context.mounted) return;
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Vaccine added successfully!')),
+                );
+              } catch (e) {
+                if (!context.mounted) return;
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Failed to add vaccine!')),
+                );
+              }
             },
           ),
         ],

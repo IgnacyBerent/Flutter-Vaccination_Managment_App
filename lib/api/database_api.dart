@@ -40,7 +40,9 @@ class DatabaseApi {
   }
 
   Future<VaccineRecord> addVaccineRecord(
-      int vaccineId, String firstDose) async {
+    int vaccineId,
+    String firstDose,
+  ) async {
     String? token = await jwt.getToken();
     if (token == null) {
       throw Exception('Token not found');
@@ -58,12 +60,33 @@ class DatabaseApi {
       }),
     )
         .then((response) {
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return VaccineRecord.fromJson(json.decode(response.body));
       } else if (response.statusCode == 401) {
         throw Exception('Unauthorized');
       } else {
         throw Exception('Failed to add vaccine record');
+      }
+    });
+  }
+
+  Future<void> deleteVaccineRecord(int id) async {
+    String? token = await jwt.getToken();
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    return http.delete(
+      Uri.parse('$url/vaccinate/uservaccine/$id/'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    ).then((response) {
+      if (response.statusCode == 204) {
+        return;
+      } else if (response.statusCode == 401) {
+        throw Exception('Unauthorized');
+      } else {
+        throw Exception('Failed to delete vaccine record');
       }
     });
   }
