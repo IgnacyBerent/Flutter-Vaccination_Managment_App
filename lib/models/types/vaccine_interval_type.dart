@@ -1,4 +1,4 @@
-enum IntervalType {
+enum VaccineIntervalType {
   oneTime,
   days,
   weeks,
