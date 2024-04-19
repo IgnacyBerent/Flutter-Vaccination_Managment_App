@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/models/vaccine.dart';
+import 'package:vaccination_managment_app/views/vaccines/add_vaccine_popup.dart';
 
 void vaccineDetails(BuildContext context, Vaccine vaccine) async {
   return showDialog(
@@ -22,11 +23,11 @@ void vaccineDetails(BuildContext context, Vaccine vaccine) async {
         actions: [
           TextButton(
             onPressed: () {
-              // add to calendar
+              addVaccinePopup(context, vaccine.id);
             },
             child: const Text('Add to calendar'),
           ),
-          const Spacer(),
+          const SizedBox(width: 20),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();

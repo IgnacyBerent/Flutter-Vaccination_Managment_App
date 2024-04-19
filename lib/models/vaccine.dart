@@ -27,7 +27,7 @@ class Vaccine {
       id: json['id'],
       name: json['name'],
       type: json['type'],
-      obligation: obligationMap[json['status']] as VaccineObligation,
+      obligation: obligationMap[json['obligation']] as VaccineObligation,
       numberOfDoses: json['quantity_of_doses'],
       intervals: json['interval'] == "NL"
           ? null
