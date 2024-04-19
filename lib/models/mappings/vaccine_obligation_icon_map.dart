@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:vaccination_managment_app/models/types/obligation.dart';
+import 'package:vaccination_managment_app/models/types/vaccine_obligation.dart';
 
 const kIconSize = 40.0;
 
 Map vaccineObligationIconMap = {
-  Obligation.obligatory: const Icon(
+  VaccineObligation.mandatory: const Icon(
     Icons.warning,
     size: kIconSize,
     color: Colors.red,
   ),
-  Obligation.recommended: const Icon(
+  VaccineObligation.recommended: const Icon(
     Icons.info,
     size: kIconSize,
     color: Colors.blue,
+  ),
+  VaccineObligation.nonMandatory: const Icon(
+    Icons.check,
+    size: kIconSize,
+    color: Colors.green,
   ),
 };
