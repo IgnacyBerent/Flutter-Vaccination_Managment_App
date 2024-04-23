@@ -5,7 +5,7 @@ import 'package:vaccination_managment_app/models/vaccine_record.dart';
 
 void vaccineHistoryDetails(BuildContext context, VaccineRecord vaccine) async {
   final dateFormat = DateFormat('dd-MM-yyyy');
-  final formattedDate = dateFormat.format(vaccine.doseDates[vaccine.dose]);
+  final formattedDate = dateFormat.format(vaccine.doseDates[vaccine.dose - 1]);
 
   return showDialog(
     context: context,
@@ -41,7 +41,9 @@ void vaccineHistoryDetails(BuildContext context, VaccineRecord vaccine) async {
                   },
                   child: const Text('AdD to calendar'),
                 ),
-          const Spacer(),
+          const SizedBox(
+            width: 20,
+          ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();

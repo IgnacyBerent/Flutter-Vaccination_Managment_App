@@ -17,33 +17,38 @@ class VaccineHistoryItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 15),
       shadowColor: Colors.black,
       elevation: 5,
-      child: Row(
-        children: [
-          SizedBox(
-            width: 80,
-            child: vaccineStatusIconMap[vaccine.status] as Icon,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                vaccine.name,
-                style: GoogleFonts.lato(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+      child: InkWell(
+        onTap: () {
+          vaccineHistoryDetails(context, vaccine);
+        },
+        child: Row(
+          children: [
+            SizedBox(
+              width: 80,
+              child: vaccineStatusIconMap[vaccine.status] as Icon,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  vaccine.name,
+                  style: GoogleFonts.lato(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-              Text(
-                vaccine.status == VaccineStatus.pending
-                    ? 'Next dose in: \n ${vaccine.doseDates[vaccine.dose - 1].difference(DateTime.now()).inDays} days'
-                    : 'Status: ${vaccine.status.name}',
-                style: GoogleFonts.karla(
-                  fontSize: 18,
+                Text(
+                  vaccine.status == VaccineStatus.pending
+                      ? 'Next dose in: \n ${vaccine.doseDates[vaccine.dose - 1].difference(DateTime.now()).inDays} days'
+                      : 'Status: ${vaccine.status.name}',
+                  style: GoogleFonts.karla(
+                    fontSize: 18,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
