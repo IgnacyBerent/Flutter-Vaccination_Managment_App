@@ -1,49 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:vaccination_managment_app/models/types/vaccine_status.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vaccination_managment_app/models/vaccine_record.dart';
+import 'package:vaccination_managment_app/views/vaccination_history/details_date_item.dart';
 
 void vaccineHistoryDetails(BuildContext context, VaccineRecord vaccine) async {
-  final dateFormat = DateFormat('dd-MM-yyyy');
-  final formattedDate = dateFormat.format(vaccine.doseDates[vaccine.dose - 1]);
-
   return showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text(vaccine.name),
+        title: Text(
+          vaccine.name,
+          style: GoogleFonts.lato(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Status: ${vaccine.status.name}'),
-            vaccine.status != VaccineStatus.done
-                ? Text('Next dose at: $formattedDate')
-                : const SizedBox(),
-            const Text('Doses:'),
-            for (var doseEntry in vaccine.doseDates.asMap().entries)
-              Text(
-                '${doseEntry.key + 1}: ${DateFormat('dd/MM/yyyy').format(doseEntry.value)}',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: DateTime.now().isAfter(doseEntry.value)
-                      ? Colors.green
-                      : null,
-                ),
+            Text(
+              'Status: ${vaccine.status.name}',
+              style: GoogleFonts.lato(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
+            ),
+            Text(
+              'Doses:',
+              style: GoogleFonts.lato(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            for (var doseEntry in vaccine.doseDates.asMap().entries)
+              DetailsDateItem(
+                vaccineId: vaccine.id,
+                vaccineDose: vaccine.dose,
+                doseEntry: doseEntry,
+                prevDate: doseEntry.key == 0
+                    ? null
+                    : vaccine.doseDates[doseEntry.key - 1],
+                nextDate: doseEntry.key == vaccine.doseDates.length - 1
+                    ? null
+                    : vaccine.doseDates[doseEntry.key + 1],
+              )
           ],
         ),
         actions: [
-          vaccine.status == VaccineStatus.done
-              ? const SizedBox()
-              : TextButton(
-                  onPressed: () {
-                    //TODO: add to calendar
-                  },
-                  child: const Text('AdD to calendar'),
-                ),
-          const SizedBox(
-            width: 20,
-          ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
