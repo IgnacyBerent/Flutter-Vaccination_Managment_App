@@ -90,4 +90,25 @@ class DatabaseApi {
       }
     });
   }
+
+  Future<void> cancelVaccine(int vaccinationId) async {
+    // TODO: implement cancelVaccine
+    throw Exception('Not implemented');
+  }
+
+  Future<void> updateVaccinationStatus(int vaccinationId, int dateIndex) async {
+    // TODO: implement updateVaccinationStatus
+    throw Exception('Not implemented');
+  }
+
+  Future<void> updateVaccinationDate(
+      int vaccinationId, int dateIndex, String newDate) async {
+    // TODO: implement updateVaccinationDate
+    throw Exception('Not implemented');
+  }
+
+  Future<void> sendPushNotificationToken(String token) async {
+    // TODO: implement sendPushNotificationToken
+    throw Exception('Not implemented');
+  }
 }
