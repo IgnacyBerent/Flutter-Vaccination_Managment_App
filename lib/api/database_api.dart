@@ -15,8 +15,12 @@ class DatabaseApi {
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       return jsonResponse.map((item) => Vaccine.fromJson(item)).toList();
+    } else if (response.statusCode == 401 || response.statusCode == 403) {
+      throw Exception('Unauthorized');
+    } else if (response.statusCode >= 500) {
+      throw Exception('Server error');
     } else {
-      throw Exception('Failed to load vaccines');
+      throw Exception('${response.statusCode} - failed to add vaccine record');
     }
   }
 
@@ -32,10 +36,12 @@ class DatabaseApi {
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
       return jsonResponse.map((item) => VaccineRecord.fromJson(item)).toList();
-    } else if (response.statusCode == 401) {
+    } else if (response.statusCode == 401 || response.statusCode == 403) {
       throw Exception('Unauthorized');
+    } else if (response.statusCode >= 500) {
+      throw Exception('Server error');
     } else {
-      throw Exception('Failed to load vaccine records');
+      throw Exception('${response.statusCode} - failed to add vaccine record');
     }
   }
 
@@ -62,10 +68,13 @@ class DatabaseApi {
         .then((response) {
       if (response.statusCode == 201) {
         return VaccineRecord.fromJson(json.decode(response.body));
-      } else if (response.statusCode == 401) {
+      } else if (response.statusCode == 401 || response.statusCode == 403) {
         throw Exception('Unauthorized');
+      } else if (response.statusCode >= 500) {
+        throw Exception('Server error');
       } else {
-        throw Exception('Failed to add vaccine record');
+        throw Exception(
+            '${response.statusCode} - failed to add vaccine record');
       }
     });
   }
@@ -83,10 +92,13 @@ class DatabaseApi {
     ).then((response) {
       if (response.statusCode == 204) {
         return;
-      } else if (response.statusCode == 401) {
+      } else if (response.statusCode == 401 || response.statusCode == 403) {
         throw Exception('Unauthorized');
+      } else if (response.statusCode >= 500) {
+        throw Exception('Server error');
       } else {
-        throw Exception('Failed to delete vaccine record');
+        throw Exception(
+            '${response.statusCode} - failed to add vaccine record');
       }
     });
   }
