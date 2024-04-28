@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vaccination_managment_app/api/database_api.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 
 class DetailsDateItem extends StatelessWidget {
@@ -30,6 +31,8 @@ class DetailsDateItem extends StatelessWidget {
   }
 
   Future<void> updateDate(BuildContext context) async {
+    final db = DatabaseApi();
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -87,10 +90,12 @@ class DetailsDateItem extends StatelessWidget {
                           );
                         },
                       );
-
                       if (confirm) {
-                        // TODO: Use api to db and close window
-                        throw UnimplementedError();
+                        await db.updateVaccinationDate(
+                          vaccineId,
+                          doseEntry.key,
+                          DateFormat('yyyy-MM-dd').format(pickedDate),
+                        );
                       }
                     }
                   },
