@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vaccination_managment_app/views/login_register/form_decoration.dart';
+import 'package:vaccination_managment_app/views/login_register/form_elements/form_decoration.dart';
 
 class FormContainer extends StatelessWidget {
   const FormContainer({

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vaccination_managment_app/api/auth.dart';
-import 'package:vaccination_managment_app/views/login_register/form_container.dart';
-import 'package:vaccination_managment_app/views/login_register/form_validators.dart';
-import 'package:vaccination_managment_app/views/login_register/form_view_container.dart';
+import 'package:vaccination_managment_app/views/login_register/form_elements/form_container.dart';
+import 'package:vaccination_managment_app/views/login_register/form_elements/form_validators.dart';
+import 'package:vaccination_managment_app/views/login_register/form_elements/form_view_container.dart';
 import 'package:vaccination_managment_app/views/login_register/register_screen.dart';
-import 'package:vaccination_managment_app/views/login_register/text_row.dart';
+import 'package:vaccination_managment_app/views/login_register/form_elements/text_row.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template.dart';
 
