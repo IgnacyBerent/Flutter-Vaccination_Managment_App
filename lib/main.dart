@@ -26,20 +26,16 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            foregroundColor: const Color.fromARGB(255, 103, 255, 166),
+            foregroundColor: const Color(0xFF2F4858),
             textStyle:
                 const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             disabledForegroundColor: const Color.fromARGB(255, 11, 163, 118),
             disabledBackgroundColor: const Color.fromARGB(255, 35, 59, 44),
-            backgroundColor: const Color.fromARGB(255, 56, 58, 57),
-            shadowColor: const Color.fromARGB(255, 105, 241, 178),
-            elevation: 7,
-            side: const BorderSide(
-                color: Color.fromARGB(255, 42, 54, 38),
-                width: 2, //change border width
-                style: BorderStyle.solid),
+            backgroundColor: const Color.fromARGB(255, 204, 231, 248),
+            shadowColor: const Color.fromARGB(255, 31, 32, 32),
+            elevation: 4,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(5),
             ),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_managment_app/widgets/layout_template/background_shape_printer.dart';
 
 class AnimatedBackgroundContainer extends StatefulWidget {
   final Widget child;
@@ -24,13 +25,13 @@ class AnimatedBackgroundContainerState
     _controller =
         AnimationController(duration: const Duration(seconds: 7), vsync: this);
     _colorTween1 = ColorTween(
-      begin: const Color.fromARGB(255, 7, 219, 131),
-      end: const Color.fromARGB(255, 158, 252, 197),
+      begin: const Color(0xFF2F4858),
+      end: const Color.fromARGB(255, 54, 88, 109),
     ).animate(
         CurvedAnimation(parent: _controller, curve: Curves.easeInOutSine));
     _colorTween2 = ColorTween(
-      begin: const Color.fromARGB(255, 158, 252, 197),
-      end: const Color.fromARGB(255, 38, 255, 103),
+      begin: const Color.fromARGB(255, 54, 88, 109),
+      end: const Color(0xFF2F4858),
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOutSine))
       ..addListener(() {
         setState(() {});
@@ -63,7 +64,10 @@ class AnimatedBackgroundContainerState
           ],
         ),
       ),
-      child: widget.child,
+      child: CustomPaint(
+        painter: BackgroundShapePainter(),
+        child: widget.child,
+      ),
     );
   }
 

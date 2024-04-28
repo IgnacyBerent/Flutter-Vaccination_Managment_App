@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vaccination_managment_app/api/auth.dart';
+import 'package:vaccination_managment_app/views/login_register/form_container.dart';
+import 'package:vaccination_managment_app/views/login_register/form_validators.dart';
+import 'package:vaccination_managment_app/views/login_register/form_view_container.dart';
+import 'package:vaccination_managment_app/views/login_register/text_row.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template.dart';
 
@@ -11,6 +16,9 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final fromSeparator = const SizedBox(height: 16);
+  final kTextColor = const Color.fromARGB(255, 204, 231, 248);
+
   Authenticate auth = Authenticate();
   final _formKey = GlobalKey<FormState>();
   var _isLoading = false;
@@ -77,111 +85,44 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return LayoutTemplate(
-      screenName: 'Register',
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Create Account',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge!
-                    .copyWith(fontSize: 30),
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              decoration: InputDecoration(
-                label: Row(
-                  children: [
-                    const Icon(Icons.person),
-                    const SizedBox(width: 5),
-                    Text(
-                      'USERNAME',
-                      style: TextStyle(
-                        fontSize: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(fontSize: 12)
-                            .fontSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+      screenName: '',
+      child: FormViewContainer(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Text(
+                'REGISTER',
+                style: GoogleFonts.lato(
+                  color: kTextColor,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a username';
-                }
-                return null;
-              },
-              onSaved: (value) => _enteredUsername = value!,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              decoration: InputDecoration(
-                label: Row(
-                  children: [
-                    const Icon(Icons.email),
-                    const SizedBox(width: 5),
-                    Text(
-                      'EMAIL',
-                      style: TextStyle(
-                        fontSize: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(fontSize: 12)
-                            .fontSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
+              fromSeparator,
+              FormContainer(
+                text: 'USERNAME',
+                icon: Icons.person,
+                validator: (value) => isEmptyValidator(value),
+                onSaved: (value) => _enteredUsername = value!,
               ),
-              keyboardType: TextInputType.emailAddress,
-              validator: (value) {
-                const pattern = r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$';
-                final regExp = RegExp(pattern);
-
-                if (value == null || value.isEmpty) {
-                  return 'Please enter an email address';
-                }
-
-                if (!regExp.hasMatch(value)) {
-                  return 'Please enter a valid email address';
-                }
-                return null;
-              },
-              onSaved: (value) => _enteredEmail = value!,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                label: Row(
-                  children: [
-                    const Icon(Icons.lock),
-                    const SizedBox(width: 5),
-                    Text(
-                      'PASSWORD',
-                      style: TextStyle(
-                        fontSize: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(fontSize: 12)
-                            .fontSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
+              const SizedBox(height: 16),
+              FormContainer(
+                text: 'EMAIL',
+                icon: Icons.email,
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) => isEmailValidator(value),
+                onSaved: (value) => _enteredEmail = value!,
+              ),
+              fromSeparator,
+              FormContainer(
+                controller: _passwordController,
+                text: 'PASSWORD',
+                icon: Icons.lock,
                 suffixIcon: IconButton(
                   icon: Icon(
                     _obscureText ? Icons.visibility : Icons.visibility_off,
+                    color: kTextColor,
                   ),
                   onPressed: () {
                     setState(() {
@@ -189,92 +130,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     });
                   },
                 ),
+                obscureText: _obscureText,
+                validator: (value) => isValidPasswordValidator(value),
+                onSaved: (value) => _enteredPassword = value!,
               ),
-              obscureText: _obscureText,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Enter a password';
-                }
-                if (value.length < 6) {
-                  return 'Minimum 6 characters';
-                }
-                if (!value.contains(RegExp(r'[A-Z]'))) {
-                  return 'Needs 1 uppercase';
-                }
-                if (!value.contains(RegExp(r'[a-z]'))) {
-                  return 'Needs 1 lowercase';
-                }
-                if (!value.contains(RegExp(r'[0-9]'))) {
-                  return 'Needs 1 digit';
-                }
-                if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-                  return 'Needs 1 special char';
-                }
-                return null;
-              },
-              onSaved: (value) => _enteredPassword = value!,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              decoration: InputDecoration(
-                label: Row(
-                  children: [
-                    const Icon(Icons.lock),
-                    const SizedBox(width: 5),
-                    Text(
-                      'CONFIRM PASSWORD',
-                      style: TextStyle(
-                        fontSize: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(fontSize: 12)
-                            .fontSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+              fromSeparator,
+              FormContainer(
+                text: 'CONFIRM PASSWORD',
+                icon: Icons.lock,
+                obscureText: _obscureText,
+                validator: (value) => doesMatchValidator(
+                  value,
+                  _passwordController.text,
                 ),
               ),
-              obscureText: _obscureText,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a password confirmation';
-                }
-                if (value != _passwordController.text) {
-                  return 'Passwords do not match';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            const SizedBox(height: 18),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: MyIconButton(
-                  buttonText: 'SIGN UP',
-                  icon: const Icon(Icons.arrow_forward),
-                  placement: 'right',
-                  onPressed: _signUp,
-                  isLoading: _isLoading,
-                ),
+              const Spacer(),
+              MyIconButton(
+                buttonText: 'SIGN UP',
+                icon: const Icon(Icons.arrow_forward),
+                placement: 'right',
+                onPressed: _signUp,
+                isLoading: _isLoading,
               ),
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Already have an account?'),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Sign in'),
-                ),
-              ],
-            ),
-          ],
+              const SizedBox(height: 10),
+              TextRow(
+                text: 'Already have an account?',
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                clicText: 'Sign in',
+              ),
+            ],
+          ),
         ),
       ),
     );
