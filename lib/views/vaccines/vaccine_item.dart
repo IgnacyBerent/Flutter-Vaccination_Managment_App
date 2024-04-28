@@ -15,36 +15,28 @@ class VaccineItem extends StatelessWidget {
       onTap: () {
         vaccineDetails(context, vaccine);
       },
-      child: Card(
-        color: Colors.grey[200],
-        margin: const EdgeInsets.only(bottom: 15),
-        shadowColor: Colors.black,
-        elevation: 5,
-        child: Row(
-          children: [
-            SizedBox(
-              width: 80,
-              child: vaccineObligationIconMap[vaccine.obligation] as Icon,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  vaccine.name,
-                  style: GoogleFonts.lato(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          color: const Color.fromARGB(19, 255, 255, 255),
+          margin: const EdgeInsets.only(bottom: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
+              vaccineObligationIconMap[vaccine.obligation],
+              Text(
+                vaccine.name,
+                style: GoogleFonts.lato(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 20,
                 ),
-                Text(
-                  vaccine.type,
-                  style: GoogleFonts.karla(
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

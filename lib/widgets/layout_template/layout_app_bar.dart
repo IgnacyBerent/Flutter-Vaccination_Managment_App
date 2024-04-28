@@ -21,6 +21,7 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: const Color.fromARGB(255, 204, 231, 248),
         ),
       ),
+      centerTitle: true,
     );
   }
 

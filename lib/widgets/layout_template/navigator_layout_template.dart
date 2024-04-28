@@ -34,6 +34,7 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
     }
 
     return Scaffold(
+      backgroundColor: const Color(0xFF2F4858),
       extendBodyBehindAppBar: true,
       appBar: LayoutAppBar(
         title: activePageTitle,
@@ -43,20 +44,27 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
           child: activePage,
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 130, 201, 171),
-        onTap: selectPage,
-        currentIndex: _selectedPageIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.vaccines),
-            label: 'Vaccines',
-          ),
-        ],
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: const Color(0xFF2F4858),
+        ),
+        child: BottomNavigationBar(
+          elevation: 0,
+          backgroundColor: const Color(0xFF2F4858),
+          onTap: selectPage,
+          currentIndex: _selectedPageIndex,
+          selectedItemColor: const Color(0xFF00CB94),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.vaccines),
+              label: 'Vaccines',
+            ),
+          ],
+        ),
       ),
     );
   }

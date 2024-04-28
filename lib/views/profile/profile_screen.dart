@@ -17,7 +17,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final Authenticate _auth = Authenticate();
   final _db = DatabaseApi();
 
+  final butotnsSpacing = const SizedBox(height: 25);
+
   void setupPushNotifications() async {
+    throw UnimplementedError();
     final fcm = FirebaseMessaging.instance;
     await fcm.requestPermission();
 
@@ -39,52 +42,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
       await _auth.logout();
     }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        MyIconButton(
-          icon: const Icon(Icons.timelapse),
-          buttonText: "Vaccination history",
-          placement: 'right',
-          width: 260,
-          height: 70,
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return const VaccinationHistoryScreen();
-                },
-              ),
-            );
-          },
-        ),
-        const SizedBox(height: 15),
-        MyIconButton(
-          icon: const Icon(Icons.calendar_today),
-          buttonText: "My Calendar",
-          placement: 'right',
-          width: 260,
-          height: 70,
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return const MyCalendarScreen();
-                },
-              ),
-            );
-          },
-        ),
-        const SizedBox(height: 15),
-        MyIconButton(
-          buttonText: "Log Out",
-          onPressed: logout,
-          icon: const Icon(Icons.logout),
-          placement: 'right',
-          width: 260,
-          height: 70,
-        ),
-      ],
+    return Container(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          MyIconButton(
+            icon: const Icon(Icons.timelapse),
+            buttonText: "Vaccination history",
+            placement: 'right',
+            width: 260,
+            height: 70,
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const VaccinationHistoryScreen();
+                  },
+                ),
+              );
+            },
+          ),
+          butotnsSpacing,
+          MyIconButton(
+            icon: const Icon(Icons.calendar_today),
+            buttonText: "My Calendar",
+            placement: 'right',
+            width: 260,
+            height: 70,
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const MyCalendarScreen();
+                  },
+                ),
+              );
+            },
+          ),
+          butotnsSpacing,
+          MyIconButton(
+            buttonText: "Log Out",
+            onPressed: logout,
+            icon: const Icon(Icons.logout),
+            placement: 'right',
+            width: 260,
+            height: 70,
+          ),
+        ],
+      ),
     );
   }
 }

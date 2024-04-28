@@ -26,13 +26,13 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: vaccines.length,
-      itemBuilder: (context, index) {
+    return GridView.count(
+      crossAxisCount: 2,
+      children: List.generate(vaccines.length, (index) {
         return VaccineItem(
           vaccines[index],
         );
-      },
+      }),
     );
   }
 }
