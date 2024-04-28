@@ -10,6 +10,7 @@ class DetailsDateItem extends StatelessWidget {
     required this.vaccineId,
     required this.vaccineDose,
     required this.doseEntry,
+    required this.isCanceled,
     this.prevDate,
     this.nextDate,
   });
@@ -17,6 +18,7 @@ class DetailsDateItem extends StatelessWidget {
   final int vaccineId;
   final int vaccineDose;
   final MapEntry<int, DateTime> doseEntry;
+  final bool isCanceled;
   final DateTime? prevDate;
   final DateTime? nextDate;
 
@@ -93,10 +95,12 @@ class DetailsDateItem extends StatelessWidget {
                       if (confirm) {
                         await db.updateVaccinationDate(
                           vaccineId,
-                          doseEntry.key,
+                          DateFormat('yyyy-MM-dd').format(doseEntry.value),
                           DateFormat('yyyy-MM-dd').format(pickedDate),
                         );
                       }
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     }
                   },
                   height: 35,
@@ -133,8 +137,9 @@ class DetailsDateItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:
-          doseEntry.key >= vaccineDose - 1 ? () => updateDate(context) : null,
+      onTap: doseEntry.key >= vaccineDose - 1 && !isCanceled
+          ? () => updateDate(context)
+          : null,
       child: Container(
         padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(

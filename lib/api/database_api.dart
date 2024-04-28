@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:vaccination_managment_app/api/debug_logs.dart';
 import 'package:vaccination_managment_app/api/jwt_token.dart';
 import 'dart:convert';
 
@@ -12,16 +13,9 @@ class DatabaseApi {
 
   Future<List<Vaccine>> fetchVaccines() async {
     final response = await http.get(Uri.parse('$url/vaccinate/list/'));
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((item) => Vaccine.fromJson(item)).toList();
-    } else if (response.statusCode == 401 || response.statusCode == 403) {
-      throw Exception('Unauthorized');
-    } else if (response.statusCode >= 500) {
-      throw Exception('Server error');
-    } else {
-      throw Exception('${response.statusCode} - failed to add vaccine record');
-    }
+    debugLogs(response.statusCode, 200);
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((item) => Vaccine.fromJson(item)).toList();
   }
 
   Future<List<VaccineRecord>> fetchVaccineRecords() async {
@@ -33,16 +27,9 @@ class DatabaseApi {
       Uri.parse('$url/vaccinate/user/'),
       headers: {'Authorization': 'Bearer $token'},
     );
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((item) => VaccineRecord.fromJson(item)).toList();
-    } else if (response.statusCode == 401 || response.statusCode == 403) {
-      throw Exception('Unauthorized');
-    } else if (response.statusCode >= 500) {
-      throw Exception('Server error');
-    } else {
-      throw Exception('${response.statusCode} - failed to add vaccine record');
-    }
+    debugLogs(response.statusCode, 200);
+    List jsonResponse = json.decode(response.body);
+    return jsonResponse.map((item) => VaccineRecord.fromJson(item)).toList();
   }
 
   Future<VaccineRecord> addVaccineRecord(
@@ -53,8 +40,7 @@ class DatabaseApi {
     if (token == null) {
       throw Exception('Token not found');
     }
-    return http
-        .post(
+    final response = await http.post(
       Uri.parse('$url/vaccinate/user/'),
       headers: {
         'Authorization': 'Bearer $token',
@@ -64,19 +50,9 @@ class DatabaseApi {
         'vaccine_id': vaccineId,
         'fist_date': firstDose,
       }),
-    )
-        .then((response) {
-      if (response.statusCode == 201) {
-        return VaccineRecord.fromJson(json.decode(response.body));
-      } else if (response.statusCode == 401 || response.statusCode == 403) {
-        throw Exception('Unauthorized');
-      } else if (response.statusCode >= 500) {
-        throw Exception('Server error');
-      } else {
-        throw Exception(
-            '${response.statusCode} - failed to add vaccine record');
-      }
-    });
+    );
+    debugLogs(response.statusCode, 201);
+    return VaccineRecord.fromJson(json.decode(response.body));
   }
 
   Future<void> deleteVaccineRecord(int id) async {
@@ -84,28 +60,27 @@ class DatabaseApi {
     if (token == null) {
       throw Exception('Token not found');
     }
-    return http.delete(
+    final response = await http.delete(
       Uri.parse('$url/vaccinate/uservaccine/$id/'),
       headers: {
         'Authorization': 'Bearer $token',
       },
-    ).then((response) {
-      if (response.statusCode == 204) {
-        return;
-      } else if (response.statusCode == 401 || response.statusCode == 403) {
-        throw Exception('Unauthorized');
-      } else if (response.statusCode >= 500) {
-        throw Exception('Server error');
-      } else {
-        throw Exception(
-            '${response.statusCode} - failed to add vaccine record');
-      }
-    });
+    );
+    debugLogs(response.statusCode, 204);
   }
 
   Future<void> cancelVaccine(int vaccinationId) async {
-    // TODO: implement cancelVaccine
-    throw Exception('Not implemented');
+    String? token = await jwt.getToken();
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    final response = await http.post(
+      Uri.parse('$url/vaccinate/uservaccine/cancel/$vaccinationId/'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    debugLogs(response.statusCode, 200);
   }
 
   Future<void> updateVaccinationStatus(int vaccinationId, int dateIndex) async {
@@ -114,9 +89,19 @@ class DatabaseApi {
   }
 
   Future<void> updateVaccinationDate(
-      int vaccinationId, int dateIndex, String newDate) async {
-    // TODO: implement updateVaccinationDate
-    throw Exception('Not implemented');
+      int vaccinationId, String oldDate, String newDate) async {
+    String? token = await jwt.getToken();
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    final response = await http.patch(
+      Uri.parse(
+          '$url/vaccinate/uservaccine/update_date/$vaccinationId/$oldDate/$newDate/'),
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    );
+    debugLogs(response.statusCode, 204);
   }
 
   Future<void> sendPushNotificationToken(String token) async {
