@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vaccination_managment_app/widgets/layout_template/animated_background_container.dart';
-import 'package:vaccination_managment_app/widgets/layout_template/centered_view.dart';
-import 'package:vaccination_managment_app/widgets/layout_template/layout_app_bar.dart';
+import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/background_image.dart';
+import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/blur_effect.dart';
+import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/layout_app_bar.dart';
 
 class LayoutTemplate extends StatelessWidget {
   const LayoutTemplate({
@@ -21,8 +21,12 @@ class LayoutTemplate extends StatelessWidget {
       appBar: LayoutAppBar(
         title: screenName,
       ),
-      body: AnimatedBackgroundContainer(
-        child: CenteredView(child: child),
+      body: Stack(
+        children: [
+          const BackgroundImage(),
+          const BlurEffect(),
+          child,
+        ],
       ),
     );
   }

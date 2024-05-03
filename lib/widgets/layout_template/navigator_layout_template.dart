@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/views/profile/profile_screen.dart';
 import 'package:vaccination_managment_app/views/vaccines/vaccines_screen.dart';
-import 'package:vaccination_managment_app/widgets/layout_template/animated_background_container.dart';
-import 'package:vaccination_managment_app/widgets/layout_template/centered_view.dart';
-import 'package:vaccination_managment_app/widgets/layout_template/layout_app_bar.dart';
+import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/background_image.dart';
+import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/blur_effect.dart';
+import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/layout_app_bar.dart';
 
 class NavigatorLayoutTemplate extends StatefulWidget {
   const NavigatorLayoutTemplate({
@@ -39,10 +39,12 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
       appBar: LayoutAppBar(
         title: activePageTitle,
       ),
-      body: AnimatedBackgroundContainer(
-        child: CenteredView(
-          child: activePage,
-        ),
+      body: Stack(
+        children: [
+          const BackgroundImage(),
+          const BlurEffect(),
+          activePage,
+        ],
       ),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
@@ -54,6 +56,7 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
           onTap: selectPage,
           currentIndex: _selectedPageIndex,
           selectedItemColor: const Color(0xFF00CB94),
+          unselectedItemColor: const Color.fromARGB(255, 0, 102, 75),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.person),

@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
   const LayoutAppBar({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
 
   final String title;
 
@@ -18,7 +18,7 @@ class LayoutAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: GoogleFonts.lato(
           fontSize: 22,
           fontWeight: FontWeight.w900,
-          color: const Color.fromARGB(255, 204, 231, 248),
+          color: const Color(0xFF2F4858),
         ),
       ),
       centerTitle: true,

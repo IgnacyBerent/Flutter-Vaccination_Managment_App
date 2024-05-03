@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyIconButton extends StatelessWidget {
   final String buttonText;
-  final Icon icon;
+  final IconData icon;
   final String placement;
   final VoidCallback onPressed;
   final bool isLoading;
@@ -23,6 +23,8 @@ class MyIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color color = const Color(0xFFF8F8F8);
+
     return SizedBox(
       width: width,
       height: height,
@@ -33,16 +35,30 @@ class MyIconButton extends StatelessWidget {
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  placement == 'left' ? icon : const SizedBox(),
+                  placement == 'left'
+                      ? Icon(
+                          icon,
+                          color: color,
+                          size: 27,
+                        )
+                      : const SizedBox(),
                   const SizedBox(width: 10),
                   Text(
                     buttonText,
                     style: GoogleFonts.lato(
                       fontSize: 16,
+                      fontWeight: FontWeight.w900,
+                      color: color,
                     ),
                   ),
                   const SizedBox(width: 10),
-                  placement == 'right' ? icon : const SizedBox(),
+                  placement == 'right'
+                      ? Icon(
+                          icon,
+                          color: color,
+                          size: 27,
+                        )
+                      : const SizedBox(),
                 ],
               ),
       ),

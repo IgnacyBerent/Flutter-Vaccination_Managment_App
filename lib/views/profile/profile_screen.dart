@@ -58,8 +58,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           MyIconButton(
-            icon: const Icon(Icons.timelapse),
-            buttonText: "Vaccination history",
+            icon: Icons.timelapse,
+            buttonText: "My History",
             placement: 'right',
             width: 260,
             height: 70,
@@ -75,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           butotnsSpacing,
           MyIconButton(
-            icon: const Icon(Icons.calendar_today),
+            icon: Icons.calendar_today,
             buttonText: "My Calendar",
             placement: 'right',
             width: 260,
@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           MyIconButton(
             buttonText: "Log Out",
             onPressed: _logout,
-            icon: const Icon(Icons.logout),
+            icon: Icons.logout,
             placement: 'right',
             width: 260,
             height: 70,

@@ -7,11 +7,13 @@ class TextRow extends StatelessWidget {
     required this.onPressed,
     required this.text,
     required this.clicText,
+    required this.color,
   });
 
   final void Function() onPressed;
   final String text;
   final String clicText;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class TextRow extends StatelessWidget {
         Text(
           text,
           style: GoogleFonts.karla(
-            color: const Color.fromARGB(255, 204, 231, 248),
+            color: color,
             fontSize: 12,
             fontWeight: FontWeight.w700,
           ),
@@ -30,19 +32,18 @@ class TextRow extends StatelessWidget {
         TextButton(
           onPressed: onPressed,
           child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(
-                  color: Color.fromARGB(
-                      255, 204, 231, 248), // Set the color of the underline
-                  width: 1.5, // Set the thickness of the underline
+                  color: color,
+                  width: 1.5,
                 ),
               ),
             ),
             child: Text(
               clicText,
               style: GoogleFonts.karla(
-                color: const Color.fromARGB(255, 204, 231, 248),
+                color: color,
                 fontSize: 12,
                 fontWeight: FontWeight.w900,
               ),
