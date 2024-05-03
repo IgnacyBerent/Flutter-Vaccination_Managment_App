@@ -54,22 +54,4 @@ class JwtToken {
     await storage.delete(key: 'jwt');
     await storage.delete(key: 'refresh_jwt');
   }
-
-  Future<Map<String, dynamic>> getUserData() async {
-    final token = await getToken();
-    if (token == null) {
-      throw Exception('token not found');
-    }
-    final parts = token.split('.');
-    if (parts.length != 3) {
-      throw Exception('invalid token');
-    }
-
-    final payload = parts[1];
-    final normalized = base64Url.normalize(payload);
-    final resp = utf8.decode(base64Url.decode(normalized));
-
-    final payloadMap = json.decode(resp);
-    return payloadMap;
-  }
 }

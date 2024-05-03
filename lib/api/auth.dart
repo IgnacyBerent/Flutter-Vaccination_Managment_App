@@ -1,17 +1,14 @@
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:vaccination_managment_app/api/jwt_token.dart';
-import 'package:vaccination_managment_app/models/user.dart';
 
-class Authenticate extends ChangeNotifier {
+class Authenticate {
   final String baseUrl =
       'https://vaccinatemanagmentbackend-production.up.railway.app/user';
   final JwtToken jwt = JwtToken();
-  User? user;
 
   Future<void> login(String username, String password) async {
     final response = await http.post(
@@ -22,7 +19,6 @@ class Authenticate extends ChangeNotifier {
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
       await jwt.saveTokens(responseBody);
-      await getUserData();
     } else {
       if (response.statusCode == 401) {
         throw Exception('Invalid credentials');
@@ -56,17 +52,8 @@ class Authenticate extends ChangeNotifier {
     }
   }
 
-  Future<void> getUserData() async {
-    final userData = await jwt.getUserData();
-    user = User.fromJson(userData);
-  }
-
   Future<void> logout() async {
     await jwt.deleteToken();
-  }
-
-  User? get currentUser {
-    return user;
   }
 
   Future<bool> refreshToken() async {
@@ -84,7 +71,6 @@ class Authenticate extends ChangeNotifier {
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
       await jwt.updateToken(responseBody['access']);
-      await getUserData();
       return true;
     } else {
       if (response.statusCode == 400) {
