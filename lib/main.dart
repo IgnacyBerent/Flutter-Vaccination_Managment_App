@@ -1,15 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:vaccination_managment_app/api/auth.dart';
+import 'package:vaccination_managment_app/firebase_options.dart';
 import 'package:vaccination_managment_app/widgets/widget_tree.dart';
 
-void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => Authenticate(),
-      child: const MyApp(),
-    ),
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 
 import 'package:vaccination_managment_app/api/jwt_token.dart';
@@ -10,8 +9,7 @@ import 'package:vaccination_managment_app/models/user.dart';
 
 class Authenticate extends ChangeNotifier {
   final String baseUrl =
-      'https://vaccinatemanagmentbackend-production.up.railway.app/user'; // the base URL of your Django backend
-  final storage = const FlutterSecureStorage();
+      'https://vaccinatemanagmentbackend-production.up.railway.app/user';
   final JwtToken jwt = JwtToken();
   User? user;
 
@@ -72,7 +70,6 @@ class Authenticate extends ChangeNotifier {
   }
 
   Future<bool> refreshToken() async {
-    log('Refreshing token');
     String? rt = await jwt.getRefreshToken();
     if (rt == null) {
       log('No refresh token found');
@@ -98,5 +95,10 @@ class Authenticate extends ChangeNotifier {
         return false;
       }
     }
+  }
+
+  Future<void> sendPushNotificationToken(String token) async {
+    // TODO: implement sendPushNotificationToken
+    throw Exception('Not implemented');
   }
 }

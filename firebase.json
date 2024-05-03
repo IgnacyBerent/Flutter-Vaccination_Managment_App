@@ -1,0 +1,22 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "vaccinateapp",
+          "appId": "1:639140740236:android:bcdd7689c03ddfc9e18fa9",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "vaccinateapp",
+          "configurations": {
+            "android": "1:639140740236:android:bcdd7689c03ddfc9e18fa9",
+            "ios": "1:639140740236:ios:42e223fa85c692d6e18fa9"
+          }
+        }
+      }
+    }
+  }
+}

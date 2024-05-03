@@ -103,9 +103,4 @@ class DatabaseApi {
     );
     debugLogs(response.statusCode, 204);
   }
-
-  Future<void> sendPushNotificationToken(String token) async {
-    // TODO: implement sendPushNotificationToken
-    throw Exception('Not implemented');
-  }
 }
