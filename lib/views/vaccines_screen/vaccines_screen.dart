@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/models/vaccine.dart';
-import 'package:vaccination_managment_app/views/vaccines/vaccine_item.dart';
+import 'package:vaccination_managment_app/views/vaccines_screen/vaccines_screen_elements/vaccine_item.dart';
 import 'package:vaccination_managment_app/api/database_api.dart';
 
 class VaccinesScreen extends StatefulWidget {

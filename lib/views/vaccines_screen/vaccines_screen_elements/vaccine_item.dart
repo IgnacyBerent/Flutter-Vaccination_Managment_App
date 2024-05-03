@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vaccination_managment_app/models/mappings/vaccine_obligation_icon_map.dart';
 import 'package:vaccination_managment_app/models/vaccine.dart';
-import 'package:vaccination_managment_app/views/vaccines/vaccine_details.dart';
+import 'package:vaccination_managment_app/views/vaccines_screen/vaccines_screen_elements/vaccine_details.dart';
 
 class VaccineItem extends StatelessWidget {
   final Vaccine vaccine;

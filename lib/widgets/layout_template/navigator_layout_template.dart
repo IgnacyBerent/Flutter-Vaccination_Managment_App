@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/views/profile/profile_screen.dart';
-import 'package:vaccination_managment_app/views/vaccines/vaccines_screen.dart';
+import 'package:vaccination_managment_app/views/vaccines_screen/vaccines_screen.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/background_image.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/blur_effect.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/layout_app_bar.dart';
