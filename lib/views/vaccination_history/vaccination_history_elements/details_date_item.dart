@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:vaccination_managment_app/api/database_api.dart';
+import 'package:vaccination_managment_app/styles/text_styles.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
+import 'package:vaccination_managment_app/widgets/popups/confirmation_popup.dart';
 
 class DetailsDateItem extends StatelessWidget {
   const DetailsDateItem({
@@ -39,9 +41,14 @@ class DetailsDateItem extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Update Date'),
-          content:
-              const Text('Do you want to update the date of this vaccine?'),
+          title: Text(
+            'Update Date',
+            style: popupTextStyle,
+          ),
+          content: Text(
+            'Do you want to update the date of this vaccine?',
+            style: descriptionTextStyle,
+          ),
           actionsAlignment: MainAxisAlignment.center,
           alignment: Alignment.center,
           actions: <Widget>[
@@ -50,7 +57,7 @@ class DetailsDateItem extends StatelessWidget {
               children: <Widget>[
                 MyIconButton(
                   buttonText: "Reshedule",
-                  icon: const Icon(Icons.calendar_today),
+                  icon: Icons.calendar_today,
                   placement: "left",
                   onPressed: () async {
                     final DateTime? pickedDate = await showDatePicker(
@@ -66,65 +73,49 @@ class DetailsDateItem extends StatelessWidget {
 
                     if (pickedDate != null) {
                       if (!context.mounted) return;
-                      final bool confirm = await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          final formatedDate =
-                              DateFormat('dd/MM/yyyy').format(pickedDate);
-                          return AlertDialog(
-                            title: const Text('Confirm'),
-                            content: Text(
-                                'Do you want to update the vaccine date to $formatedDate?'),
-                            actions: <Widget>[
-                              TextButton(
-                                child: const Text('Cancel'),
-                                onPressed: () {
-                                  Navigator.of(context).pop(false);
-                                },
-                              ),
-                              TextButton(
-                                child: const Text('Confirm'),
-                                onPressed: () {
-                                  Navigator.of(context).pop(true);
-                                },
-                              ),
-                            ],
-                          );
-                        },
+                      final formatedDate =
+                          DateFormat('dd/MM/yyyy').format(pickedDate);
+                      final bool confirm = await confirmationPopup(
+                        context,
+                        "Confirm",
+                        'Do you want to update the vaccine date to $formatedDate?',
                       );
+
                       if (confirm) {
                         await db.updateVaccinationDate(
                           vaccineId,
                           DateFormat('yyyy-MM-dd').format(doseEntry.value),
                           DateFormat('yyyy-MM-dd').format(pickedDate),
                         );
+                        if (!context.mounted) return;
+                        Navigator.of(context).pop();
                       }
-                      Navigator.of(context).pop();
+                      if (!context.mounted) return;
                       Navigator.of(context).pop();
                     }
                   },
                   height: 35,
-                  width: 180,
+                  width: 200,
                 ),
                 const SizedBox(height: 5),
                 MyIconButton(
                   buttonText: "Done",
-                  icon: const Icon(Icons.done),
+                  icon: Icons.done,
                   placement: "left",
                   onPressed: () {},
                   height: 35,
-                  width: 180,
+                  width: 200,
                 ),
                 const SizedBox(height: 5),
                 MyIconButton(
                   buttonText: "Cancel",
-                  icon: const Icon(Icons.cancel),
+                  icon: Icons.cancel,
                   placement: "left",
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   height: 35,
-                  width: 180,
+                  width: 200,
                 ),
               ],
             ),

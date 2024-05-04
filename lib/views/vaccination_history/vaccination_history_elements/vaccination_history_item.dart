@@ -1,49 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vaccination_managment_app/models/mappings/vaccine_status_icon_map.dart';
 import 'package:vaccination_managment_app/models/types/vaccine_status.dart';
 import 'package:vaccination_managment_app/models/vaccine_record.dart';
-import 'package:vaccination_managment_app/views/vaccination_history/vaccine_history_details.dart';
+import 'package:vaccination_managment_app/styles/text_styles.dart';
+import 'package:vaccination_managment_app/views/vaccination_history/vaccination_history_elements/vaccine_history_details.dart';
 
 class VaccineHistoryItem extends StatelessWidget {
-  final VaccineRecord vaccine;
+  const VaccineHistoryItem({
+    super.key,
+    required this.vaccine,
+    required this.onCancel,
+  });
 
-  const VaccineHistoryItem(this.vaccine, {Key? key}) : super(key: key);
+  final VaccineRecord vaccine;
+  final Function onCancel;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey[200],
-      margin: const EdgeInsets.only(bottom: 15),
-      shadowColor: Colors.black,
+      color: const Color.fromARGB(40, 255, 255, 255),
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+      shadowColor: Colors.black54,
       elevation: 5,
       child: InkWell(
         onTap: () {
-          vaccineHistoryDetails(context, vaccine);
+          vaccineHistoryDetails(
+            context,
+            vaccine,
+            onCancel,
+          );
         },
         child: Row(
           children: [
-            SizedBox(
-              width: 80,
-              child: vaccineStatusIconMap[vaccine.status] as Icon,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15, 5, 20, 5),
+              child: vaccineStatusIconMap[vaccine.status],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   vaccine.name,
-                  style: GoogleFonts.lato(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+                  style: popupTitleTextStyle,
                 ),
                 Text(
                   vaccine.status == VaccineStatus.pending
                       ? 'Next dose in: \n ${vaccine.doseDates[vaccine.dose - 1].difference(DateTime.now()).inDays} days'
-                      : 'Status: ${vaccine.status.name}',
-                  style: GoogleFonts.karla(
-                    fontSize: 18,
-                  ),
+                      : 'Status: ${vaccine.status.name.toUpperCase()}',
+                  style: descriptionTextStyle,
                 ),
               ],
             ),

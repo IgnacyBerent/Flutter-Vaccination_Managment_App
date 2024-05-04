@@ -21,7 +21,9 @@ class VaccineItem extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
-          color: const Color.fromARGB(19, 255, 255, 255),
+          color: const Color.fromARGB(40, 255, 255, 255),
+          shadowColor: Colors.black54,
+          elevation: 5,
           margin: const EdgeInsets.only(bottom: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -33,6 +35,7 @@ class VaccineItem extends StatelessWidget {
                 style: GoogleFonts.lato(
                   fontWeight: FontWeight.w800,
                   fontSize: 20,
+                  color: const Color(0xFFF8F8F8),
                 ),
               ),
             ],

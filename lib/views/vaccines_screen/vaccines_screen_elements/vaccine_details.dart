@@ -1,32 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vaccination_managment_app/models/mappings/obligation_status_text_map.dart';
 import 'package:vaccination_managment_app/models/vaccine.dart';
+import 'package:vaccination_managment_app/styles/text_styles.dart';
 import 'package:vaccination_managment_app/views/vaccines_screen/vaccines_screen_elements/add_vaccine_popup.dart';
 
 void vaccineDetails(BuildContext context, Vaccine vaccine) async {
-  final descriptionTextStyle = GoogleFonts.karla(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-  );
-
-  final buttonTextStyle = GoogleFonts.karla(
-    fontSize: 15,
-    fontWeight: FontWeight.w700,
-    color: const Color(0xFF00CB94),
-  );
-
   return showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
-        backgroundColor: const Color.fromARGB(255, 204, 231, 248),
+        backgroundColor: const Color(0xFFF8F8F8),
         title: Text(
           vaccine.name,
-          style: GoogleFonts.lato(
-            fontWeight: FontWeight.w900,
-            fontSize: 24,
-          ),
+          style: popupTitleTextStyle,
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,

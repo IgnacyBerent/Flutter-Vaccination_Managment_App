@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/models/types/vaccine_status.dart';
+import 'package:vaccination_managment_app/widgets/icons/status_icon.dart';
 
-const kIconSize = 40.0;
+const kIconSize = 50.0;
+const kFontSize = 25.0;
 
 Map vaccineStatusIconMap = {
-  VaccineStatus.done: const Icon(
-    Icons.done,
+  VaccineStatus.done: const StatusIcon(
+    letter: "D",
+    statusColor: Colors.green,
     size: kIconSize,
-    color: Colors.green,
+    fontSize: kFontSize,
   ),
-  VaccineStatus.pending: const Icon(
-    Icons.pending_actions,
+  VaccineStatus.pending: const StatusIcon(
+    letter: "P",
+    statusColor: Colors.orange,
     size: kIconSize,
-    color: Colors.orange,
+    fontSize: kFontSize,
   ),
-  VaccineStatus.canceled: const Icon(
-    Icons.cancel,
+  VaccineStatus.canceled: const StatusIcon(
+    letter: "C",
+    statusColor: Colors.red,
     size: kIconSize,
-    color: Colors.red,
+    fontSize: kFontSize,
   ),
 };

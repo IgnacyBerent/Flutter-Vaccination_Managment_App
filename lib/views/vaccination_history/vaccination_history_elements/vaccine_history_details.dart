@@ -1,39 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:vaccination_managment_app/api/database_api.dart';
 import 'package:vaccination_managment_app/models/types/vaccine_status.dart';
 import 'package:vaccination_managment_app/models/vaccine_record.dart';
-import 'package:vaccination_managment_app/views/vaccination_history/details_date_item.dart';
+import 'package:vaccination_managment_app/styles/text_styles.dart';
+import 'package:vaccination_managment_app/views/vaccination_history/vaccination_history_elements/details_date_item.dart';
 
-void vaccineHistoryDetails(BuildContext context, VaccineRecord vaccine) async {
-  final db = DatabaseApi();
+Future<void> vaccineHistoryDetails(
+  BuildContext context,
+  VaccineRecord vaccine,
+  Function onCancel,
+) async {
   return showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
+        backgroundColor: const Color(0xFFF8F8F8),
         title: Text(
           vaccine.name,
-          style: GoogleFonts.lato(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
+          style: popupTitleTextStyle,
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Status: ${vaccine.status.name}',
-              style: GoogleFonts.lato(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+              'Status: ${vaccine.status.name.toUpperCase()}',
+              style: statusTextStyle,
             ),
             Text(
               'Doses:',
-              style: GoogleFonts.lato(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+              style: statusTextStyle,
             ),
             for (var doseEntry in vaccine.doseDates.asMap().entries)
               DetailsDateItem(
@@ -54,17 +48,23 @@ void vaccineHistoryDetails(BuildContext context, VaccineRecord vaccine) async {
           vaccine.status == VaccineStatus.canceled
               ? Container()
               : TextButton(
-                  onPressed: () async {
-                    db.cancelVaccine(vaccine.id);
+                  onPressed: () {
+                    onCancel;
                     Navigator.of(context).pop();
                   },
-                  child: const Text('CANCEL VACCINE'),
+                  child: Text(
+                    'CANCEL VACCINE',
+                    style: buttonTextStyle,
+                  ),
                 ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('CLOSE'),
+            child: Text(
+              'CLOSE',
+              style: buttonTextStyle,
+            ),
           ),
         ],
       );

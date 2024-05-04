@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class VaccineObligationIcon extends StatelessWidget {
-  const VaccineObligationIcon({
+class StatusIcon extends StatelessWidget {
+  const StatusIcon({
     super.key,
     required this.letter,
     required this.statusColor,
+    required this.size,
+    required this.fontSize,
   });
 
   final String letter;
   final Color statusColor;
+  final double size;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +25,14 @@ class VaccineObligationIcon extends StatelessWidget {
       ),
       child: ClipOval(
         child: SizedBox(
-          width: 60,
-          height: 60,
+          width: size,
+          height: size,
           child: Center(
             child: Text(
               letter,
               style: GoogleFonts.lato(
                 color: const Color.fromARGB(255, 204, 231, 248),
-                fontSize: 30,
+                fontSize: fontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),

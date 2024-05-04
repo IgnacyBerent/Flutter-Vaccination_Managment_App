@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/models/types/vaccine_obligation.dart';
+import 'package:vaccination_managment_app/widgets/icons/status_icon.dart';
 
-const kIconSize = 40.0;
+const kIconSize = 60.0;
+const kFontSize = 30.0;
 
 Map vaccineObligationIconMap = {
-  VaccineObligation.mandatory: const Icon(
-    Icons.warning,
+  VaccineObligation.mandatory: const StatusIcon(
+    letter: "!",
+    statusColor: Color(0xFFFF00FF),
     size: kIconSize,
-    color: Color.fromARGB(255, 255, 0, 255),
+    fontSize: kFontSize,
   ),
-  VaccineObligation.recommended: const Icon(
-    Icons.info,
+  VaccineObligation.recommended: const StatusIcon(
+    letter: "R",
+    statusColor: Color(0xFF00677F),
     size: kIconSize,
-    color: Color(0xFF00677F),
+    fontSize: kFontSize,
   ),
-  VaccineObligation.nonMandatory: const Icon(
-    Icons.check_circle_outline,
+  VaccineObligation.nonMandatory: const StatusIcon(
+    letter: "O",
+    statusColor: Color.fromARGB(255, 67, 255, 98),
     size: kIconSize,
-    color: Color.fromARGB(255, 204, 231, 248),
+    fontSize: kFontSize,
   ),
 };

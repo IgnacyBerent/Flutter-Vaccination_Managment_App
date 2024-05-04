@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vaccination_managment_app/api/database_api.dart';
+import 'package:vaccination_managment_app/styles/text_styles.dart';
 
 void addVaccinePopup(BuildContext context, int id) {
   final db = DatabaseApi();
@@ -9,11 +10,16 @@ void addVaccinePopup(BuildContext context, int id) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Schedule Vaccine'),
+        title: Text(
+          'Schedule Vaccine',
+          style: popupTextStyle,
+        ),
         content: TextField(
           controller: controller,
+          style: descriptionTextStyle,
           decoration: InputDecoration(
             labelText: 'dd/MM/yyyy',
+            labelStyle: descriptionTextStyle,
             suffixIcon: IconButton(
               icon: const Icon(Icons.calendar_today),
               onPressed: () async {
@@ -32,13 +38,19 @@ void addVaccinePopup(BuildContext context, int id) {
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text('Cancel'),
+            child: Text(
+              'CANCEL',
+              style: buttonTextStyle,
+            ),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           TextButton(
-            child: const Text('Submit'),
+            child: Text(
+              'SUBMIT',
+              style: buttonTextStyle,
+            ),
             onPressed: () async {
               final inputDate = DateFormat('yyyy-MM-dd').format(
                 DateFormat('dd/MM/yyyy').parse(controller.text),
@@ -49,14 +61,24 @@ void addVaccinePopup(BuildContext context, int id) {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Vaccine added successfully!')),
+                  SnackBar(
+                    content: Text(
+                      'Vaccine added successfully!',
+                      style: descriptionTextStyle,
+                    ),
+                  ),
                 );
               } catch (e) {
                 if (!context.mounted) return;
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Failed to add vaccine!')),
+                  SnackBar(
+                    content: Text(
+                      'Failed to add vaccine!',
+                      style: descriptionTextStyle,
+                    ),
+                  ),
                 );
               }
             },
