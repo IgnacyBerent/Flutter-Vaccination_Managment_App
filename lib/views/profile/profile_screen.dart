@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:vaccination_managment_app/api/auth.dart';
 import 'package:vaccination_managment_app/views/my_calendar/my_calendar_screen.dart';
-import 'package:vaccination_managment_app/views/profile/round_app_icon.dart';
+import 'package:vaccination_managment_app/widgets/icons/round_app_icon.dart';
 import 'package:vaccination_managment_app/views/vaccination_history/vaccination_history_screen.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 
