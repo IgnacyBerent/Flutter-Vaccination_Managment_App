@@ -3,6 +3,7 @@ import 'package:vaccination_managment_app/models/types/vaccine_status.dart';
 import 'package:vaccination_managment_app/models/vaccine_record.dart';
 import 'package:vaccination_managment_app/styles/text_styles.dart';
 import 'package:vaccination_managment_app/views/vaccination_history/vaccination_history_elements/details_date_item.dart';
+import 'package:vaccination_managment_app/widgets/popups/confirmation_popup.dart';
 
 Future<void> vaccineHistoryDetails(
   BuildContext context,
@@ -48,9 +49,17 @@ Future<void> vaccineHistoryDetails(
           vaccine.status == VaccineStatus.canceled
               ? Container()
               : TextButton(
-                  onPressed: () {
-                    onCancel;
-                    Navigator.of(context).pop();
+                  onPressed: () async {
+                    final bool confirm = await confirmationPopup(
+                      context,
+                      "Confirm",
+                      'Do you want to cancel this vaccine?',
+                    );
+                    if (confirm) {
+                      onCancel;
+                      if (!context.mounted) return;
+                      Navigator.of(context).pop();
+                    }
                   },
                   child: Text(
                     'CANCEL VACCINE',
