@@ -30,4 +30,14 @@ class VaccineRecord {
           .toList(),
     );
   }
+
+  factory VaccineRecord.asNull() {
+    return VaccineRecord(
+      id: -1,
+      name: '',
+      status: VaccineStatus.canceled,
+      dose: 0,
+      doseDates: [],
+    );
+  }
 }

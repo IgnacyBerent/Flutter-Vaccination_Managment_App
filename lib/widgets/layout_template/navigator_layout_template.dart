@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_managment_app/views/calendar_screen/calendar_screen.dart';
 import 'package:vaccination_managment_app/views/profile/profile_screen.dart';
 import 'package:vaccination_managment_app/views/vaccines_screen/vaccines_screen.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/background_image.dart';
@@ -16,21 +17,24 @@ class NavigatorLayoutTemplate extends StatefulWidget {
 }
 
 class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
-  int _selectedPageIndex = 0;
+  int _selectedPageIndex = 1;
 
   void selectPage(int index) => setState(() => _selectedPageIndex = index);
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = const ProfileScreen();
+    Widget activePage = ProfileScreen(selectPage: selectPage);
     String activePageTitle = 'Your profile';
 
-    if (_selectedPageIndex == 1) {
+    if (_selectedPageIndex == 2) {
       activePage = const VaccinesScreen();
-      activePageTitle = 'Available vaccines';
+      activePageTitle = 'Available Vaccines';
+    } else if (_selectedPageIndex == 1) {
+      activePage = ProfileScreen(selectPage: selectPage);
+      activePageTitle = 'My Profile';
     } else if (_selectedPageIndex == 0) {
-      activePage = const ProfileScreen();
-      activePageTitle = 'Your profile';
+      activePage = const CalendarScreen();
+      activePageTitle = 'My Calendar';
     }
 
     return Scaffold(
@@ -58,6 +62,10 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
           selectedItemColor: const Color(0xFF00CB94),
           unselectedItemColor: const Color.fromARGB(255, 178, 189, 180),
           items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month),
+              label: 'Calendar',
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',

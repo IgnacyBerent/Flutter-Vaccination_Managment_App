@@ -2,16 +2,16 @@ import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:vaccination_managment_app/api/auth.dart';
-import 'package:vaccination_managment_app/views/my_calendar/my_calendar_screen.dart';
 import 'package:vaccination_managment_app/widgets/icons/round_app_icon.dart';
 import 'package:vaccination_managment_app/views/vaccination_history/vaccination_history_screen.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key, required this.selectPage});
+
+  final Function(int) selectPage;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -62,6 +62,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          butotnsSpacing,
+          butotnsSpacing,
           Stack(
             children: [
               Container(
@@ -106,13 +108,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
             width: 260,
             height: 70,
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const MyCalendarScreen();
-                  },
-                ),
-              );
+              widget.selectPage(0);
+            },
+          ),
+          butotnsSpacing,
+          MyIconButton(
+            icon: Icons.vaccines,
+            buttonText: "Vaccines",
+            placement: 'right',
+            width: 260,
+            height: 70,
+            onPressed: () {
+              widget.selectPage(2);
             },
           ),
           butotnsSpacing,
