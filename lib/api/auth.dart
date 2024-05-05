@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:vaccination_managment_app/api/debug_logs.dart';
 import 'dart:convert';
 
 import 'package:vaccination_managment_app/api/jwt_token.dart';
@@ -84,7 +86,42 @@ class Authenticate {
   }
 
   Future<void> sendPushNotificationToken(String token) async {
-    // TODO: implement sendPushNotificationToken
-    throw Exception('Not implemented');
+    final deviceType = Platform.isIOS ? 'ios' : 'android';
+    String? jt = await jwt.getToken();
+    if (jt == null) {
+      throw Exception('Token not found');
+    }
+    final response = await http.post(
+      Uri.parse('$baseUrl/add_device/'),
+      headers: {
+        'Authorization': 'Bearer $jt',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'registration_id': token,
+        'type': deviceType,
+      }),
+    );
+    debugLogs(response.statusCode, 201);
+  }
+
+  Future<void> updatePushNotificationToken(String token) async {
+    final deviceType = Platform.isIOS ? 'ios' : 'android';
+    String? jt = await jwt.getToken();
+    if (jt == null) {
+      throw Exception('Token not found');
+    }
+    final response = await http.patch(
+      Uri.parse('$baseUrl/update_device/'),
+      headers: {
+        'Authorization': 'Bearer $jt',
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode({
+        'registration_id': token,
+        'type': deviceType,
+      }),
+    );
+    debugLogs(response.statusCode, 200);
   }
 }

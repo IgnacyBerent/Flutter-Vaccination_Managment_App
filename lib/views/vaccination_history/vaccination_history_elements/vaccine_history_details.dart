@@ -8,7 +8,7 @@ import 'package:vaccination_managment_app/widgets/popups/confirmation_popup.dart
 Future<void> vaccineHistoryDetails(
   BuildContext context,
   VaccineRecord vaccine,
-  Function onCancel,
+  Future<void> Function() refresh,
 ) async {
   return showDialog(
     context: context,
@@ -56,7 +56,7 @@ Future<void> vaccineHistoryDetails(
                       'Do you want to cancel this vaccine?',
                     );
                     if (confirm) {
-                      onCancel;
+                      await refresh();
                       if (!context.mounted) return;
                       Navigator.of(context).pop();
                     }

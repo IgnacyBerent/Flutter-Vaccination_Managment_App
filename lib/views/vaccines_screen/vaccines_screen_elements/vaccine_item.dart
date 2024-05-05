@@ -17,7 +17,7 @@ class VaccineItem extends StatelessWidget {
         vaccineDetails(context, vaccine);
       },
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(10),
         child: CardContainer(
           child: Card(
             color: Colors.transparent,
@@ -32,12 +32,16 @@ class VaccineItem extends StatelessWidget {
               children: [
                 const SizedBox(height: 20),
                 vaccineObligationIconMap[vaccine.obligation],
-                Text(
-                  vaccine.name,
-                  style: GoogleFonts.lato(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 20,
-                    color: const Color(0xFFF8F8F8),
+                Flexible(
+                  child: Text(
+                    vaccine.name,
+                    style: GoogleFonts.lato(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 20,
+                      color: const Color(0xFFF8F8F8),
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],

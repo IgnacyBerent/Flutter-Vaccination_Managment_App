@@ -28,11 +28,6 @@ class _VaccinationHistoryScreenState extends State<VaccinationHistoryScreen> {
     setState(() {});
   }
 
-  Future<void> _cancelVaccine(int vaccinationId) async {
-    await _db.cancelVaccine(vaccinationId);
-    _refreshVaccineReocrds();
-  }
-
   @override
   Widget build(BuildContext context) {
     return LayoutTemplate(
@@ -66,7 +61,7 @@ class _VaccinationHistoryScreenState extends State<VaccinationHistoryScreen> {
             },
             child: VaccineHistoryItem(
               vaccine: _vaccineRecords[index],
-              onCancel: () => _cancelVaccine(_vaccineRecords[index].id),
+              refresh: _refreshVaccineReocrds,
             ),
           );
         },

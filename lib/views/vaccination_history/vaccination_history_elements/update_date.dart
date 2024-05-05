@@ -58,7 +58,7 @@ Future<void> updateDate({
                     );
 
                     if (confirm) {
-                      await db.updateVaccinationDate(
+                      await db.rescheduleVaccinationDate(
                         vaccineId,
                         DateFormat('yyyy-MM-dd').format(doseEntry.value),
                         DateFormat('yyyy-MM-dd').format(pickedDate),

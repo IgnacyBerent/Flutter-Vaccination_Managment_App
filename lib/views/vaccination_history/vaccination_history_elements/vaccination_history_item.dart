@@ -10,11 +10,11 @@ class VaccineHistoryItem extends StatelessWidget {
   const VaccineHistoryItem({
     super.key,
     required this.vaccine,
-    required this.onCancel,
+    required this.refresh,
   });
 
   final VaccineRecord vaccine;
-  final Function onCancel;
+  final Future<void> Function() refresh;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,11 @@ class VaccineHistoryItem extends StatelessWidget {
           vaccineHistoryDetails(
             context,
             vaccine,
-            onCancel,
+            refresh,
           );
         },
         child: SizedBox(
-          height: 120,
+          height: 155,
           child: CardContainer(
             child: Card(
               color: Colors.transparent,
@@ -40,21 +40,25 @@ class VaccineHistoryItem extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(15, 5, 20, 5),
                     child: vaccineStatusIconMap[vaccine.status],
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        vaccine.name,
-                        style: popupTitleTextStyle,
-                      ),
-                      Text(
-                        vaccine.status == VaccineStatus.pending
-                            ? 'Next dose in: \n ${vaccine.doseDates[vaccine.dose - 1].difference(DateTime.now()).inDays} days'
-                            : 'Status: ${vaccine.status.name.toUpperCase()}',
-                        style: descriptionTextStyle,
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          vaccine.name,
+                          style: popupTitleTextStyle,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                        ),
+                        Text(
+                          vaccine.status == VaccineStatus.pending
+                              ? 'Next dose in: \n ${vaccine.doseDates[vaccine.dose - 1].difference(DateTime.now()).inDays} days'
+                              : 'Status: ${vaccine.status.name.toUpperCase()}',
+                          style: descriptionTextStyle,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

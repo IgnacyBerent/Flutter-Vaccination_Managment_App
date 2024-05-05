@@ -25,7 +25,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void setupPushNotifications() async {
     final fcm = FirebaseMessaging.instance;
 
-    NotificationSettings settings = await fcm.requestPermission(
+    NotificationSettings settings = await fcm.getNotificationSettings();
+
+    settings = await fcm.requestPermission(
       alert: true,
       badge: true,
       sound: true,
@@ -35,7 +37,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       log('User granted permission');
       final pushNotificationToken = await fcm.getToken();
       if (pushNotificationToken != null) {
-        await _auth.sendPushNotificationToken(pushNotificationToken);
+        try {
+          await _auth.sendPushNotificationToken(pushNotificationToken);
+        } catch (e) {
+          log('Trying to update push notification token');
+          await _auth.updatePushNotificationToken(pushNotificationToken);
+        }
       }
     } else {
       log('User declined or has not yet responded to the permission request');
