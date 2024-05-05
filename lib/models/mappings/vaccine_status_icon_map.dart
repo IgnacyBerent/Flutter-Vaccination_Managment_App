@@ -8,7 +8,7 @@ const kFontSize = 25.0;
 Map vaccineStatusIconMap = {
   VaccineStatus.done: const StatusIcon(
     letter: "D",
-    statusColor: Colors.green,
+    statusColor: Color(0xFF00bf83),
     size: kIconSize,
     fontSize: kFontSize,
   ),

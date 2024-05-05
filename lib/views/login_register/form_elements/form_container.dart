@@ -73,8 +73,9 @@ class FormContainer extends StatelessWidget {
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
+                        Color(0xBF2F4858),
                         Color(0xFF00AAA0),
-                        Color(0xFF2F4858),
+                        Color(0xBF2F4858),
                       ],
                     ),
                   ),

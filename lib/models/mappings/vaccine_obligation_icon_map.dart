@@ -8,7 +8,7 @@ const kFontSize = 30.0;
 Map vaccineObligationIconMap = {
   VaccineObligation.mandatory: const StatusIcon(
     letter: "!",
-    statusColor: Color(0xFFFF00FF),
+    statusColor: Color.fromARGB(255, 221, 0, 85),
     size: kIconSize,
     fontSize: kFontSize,
   ),
@@ -20,7 +20,7 @@ Map vaccineObligationIconMap = {
   ),
   VaccineObligation.nonMandatory: const StatusIcon(
     letter: "O",
-    statusColor: Color.fromARGB(255, 67, 255, 98),
+    statusColor: Color.fromARGB(255, 0, 148, 101),
     size: kIconSize,
     fontSize: kFontSize,
   ),

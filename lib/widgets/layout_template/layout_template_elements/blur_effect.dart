@@ -11,7 +11,7 @@ class BlurEffect extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.25),
+        color: Colors.white.withOpacity(0.7),
         boxShadow: [
           BoxShadow(
             color: Colors.white.withOpacity(0.2),

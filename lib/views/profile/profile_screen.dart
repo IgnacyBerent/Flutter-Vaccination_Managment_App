@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:vaccination_managment_app/api/auth.dart';
 import 'package:vaccination_managment_app/views/my_calendar/my_calendar_screen.dart';
@@ -61,9 +62,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const RoundAppIcon(
-            imagePath: 'assets/vaccinate_app_icon.png',
-            borderColor: Color(0xFF00BF83),
+          Stack(
+            children: [
+              Container(
+                width: 150,
+                height: 150,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              const Opacity(
+                opacity: 0.8,
+                child: RoundAppIcon(
+                  imagePath: 'assets/vaccinate_app_icon.png',
+                  borderColor: Color(0xFF00BF83),
+                ),
+              ),
+            ],
           ),
           butotnsSpacing,
           MyIconButton(

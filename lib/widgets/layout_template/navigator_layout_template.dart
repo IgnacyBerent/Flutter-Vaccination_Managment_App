@@ -56,7 +56,7 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
           onTap: selectPage,
           currentIndex: _selectedPageIndex,
           selectedItemColor: const Color(0xFF00CB94),
-          unselectedItemColor: const Color.fromARGB(255, 0, 102, 75),
+          unselectedItemColor: const Color.fromARGB(255, 178, 189, 180),
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
