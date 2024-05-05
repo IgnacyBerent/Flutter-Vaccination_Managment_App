@@ -52,7 +52,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             startingDayOfWeek: StartingDayOfWeek.monday,
             headerStyle: HeaderStyle(
               formatButtonVisible: false,
-              titleTextStyle: popupTextStyle,
+              titleTextStyle: popupTitleTextStyle,
             ),
             calendarStyle: myCalendarStyle,
             daysOfWeekHeight: 40,
