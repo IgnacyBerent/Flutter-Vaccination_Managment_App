@@ -48,7 +48,7 @@ class DatabaseApi {
       },
       body: jsonEncode({
         'vaccine_id': vaccineId,
-        'fist_date': firstDose,
+        'first_date': firstDose,
       }),
     );
     debugLogs(response.statusCode, 201);
