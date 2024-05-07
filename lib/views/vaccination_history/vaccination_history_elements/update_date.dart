@@ -60,16 +60,30 @@ Future<void> updateDate({
                     );
 
                     if (confirm) {
-                      await db.rescheduleVaccinationDate(
-                        vaccineId,
-                        DateFormat('yyyy-MM-dd').format(doseEntry.value),
-                        DateFormat('yyyy-MM-dd').format(pickedDate),
-                      );
-                      if (!context.mounted) return;
-                      Navigator.of(context).pop();
+                      try {
+                        await db.rescheduleVaccinationDate(
+                          vaccineId,
+                          DateFormat('yyyy-MM-dd').format(doseEntry.value),
+                          DateFormat('yyyy-MM-dd').format(pickedDate),
+                        );
+                        await refresh();
+                        if (!context.mounted) return;
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                        succesSnackBar(
+                          context,
+                          "Reshedule vaccinate successfull!",
+                        );
+                      } catch (e) {
+                        if (!context.mounted) return;
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                        failSnackBard(
+                          context,
+                          "Failed to Reshedule vaccination!",
+                        );
+                      }
                     }
-                    if (!context.mounted) return;
-                    Navigator.of(context).pop();
                   }
                 },
                 height: 35,

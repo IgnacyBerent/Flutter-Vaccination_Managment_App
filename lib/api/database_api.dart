@@ -110,6 +110,6 @@ class DatabaseApi {
         'Authorization': 'Bearer $token',
       },
     );
-    debugLogs(response.statusCode, 204);
+    debugLogs(response.statusCode, 200);
   }
 }
