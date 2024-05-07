@@ -41,7 +41,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       child: Center(
         child: Container(
           padding: const EdgeInsets.all(8),
-          height: 460,
+          height: 480,
           decoration: BoxDecoration(
             border: Border.all(
               color: const Color(0xFF2F4858),
