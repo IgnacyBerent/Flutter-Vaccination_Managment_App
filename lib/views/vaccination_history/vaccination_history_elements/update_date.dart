@@ -12,6 +12,7 @@ Future<void> updateDate({
   required MapEntry<int, DateTime> doseEntry,
   DateTime? prevDate,
   DateTime? nextDate,
+  required Future<void> Function() refresh,
 }) async {
   final db = DatabaseApi();
 
@@ -87,8 +88,8 @@ Future<void> updateDate({
                   if (confirm) {
                     await db.updateVaccinationStatus(
                       vaccineId,
-                      vaccineDose,
                     );
+                    await refresh();
                     if (!context.mounted) return;
                     Navigator.of(context).pop();
                   }

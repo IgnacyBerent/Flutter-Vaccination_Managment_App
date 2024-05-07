@@ -28,6 +28,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   Future<void> _refreshVaccineReocrds() async {
+    Navigator.of(context).pop();
     _vaccineRecords = await _db.fetchVaccineRecords();
     setState(() {});
   }

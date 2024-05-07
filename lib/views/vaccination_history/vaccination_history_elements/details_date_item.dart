@@ -12,6 +12,7 @@ class DetailsDateItem extends StatelessWidget {
     required this.isCanceled,
     this.prevDate,
     this.nextDate,
+    required this.refresh,
   });
 
   final int vaccineId;
@@ -20,6 +21,7 @@ class DetailsDateItem extends StatelessWidget {
   final bool isCanceled;
   final DateTime? prevDate;
   final DateTime? nextDate;
+  final Future<void> Function() refresh;
 
   Color doseStatusColor(int doseNumber) {
     if (doseNumber < vaccineDose - 1) {
@@ -42,6 +44,7 @@ class DetailsDateItem extends StatelessWidget {
                 doseEntry: doseEntry,
                 prevDate: prevDate,
                 nextDate: nextDate,
+                refresh: refresh,
               )
           : null,
       child: Container(

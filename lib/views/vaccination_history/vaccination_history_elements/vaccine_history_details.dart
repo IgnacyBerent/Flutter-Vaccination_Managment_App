@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaccination_managment_app/api/database_api.dart';
 import 'package:vaccination_managment_app/models/types/vaccine_status.dart';
 import 'package:vaccination_managment_app/models/vaccine_record.dart';
 import 'package:vaccination_managment_app/styles/text_styles.dart';
@@ -10,6 +11,7 @@ Future<void> vaccineHistoryDetails(
   VaccineRecord vaccine,
   Future<void> Function() refresh,
 ) async {
+  final db = DatabaseApi();
   return showDialog(
     context: context,
     builder: (context) {
@@ -42,6 +44,7 @@ Future<void> vaccineHistoryDetails(
                 nextDate: doseEntry.key == vaccine.doseDates.length - 1
                     ? null
                     : vaccine.doseDates[doseEntry.key + 1],
+                refresh: refresh,
               )
           ],
         ),
@@ -56,6 +59,7 @@ Future<void> vaccineHistoryDetails(
                       'Do you want to cancel this vaccine?',
                     );
                     if (confirm) {
+                      await db.cancelVaccine(vaccine.id);
                       await refresh();
                       if (!context.mounted) return;
                       Navigator.of(context).pop();

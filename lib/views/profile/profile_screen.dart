@@ -27,25 +27,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     NotificationSettings settings = await fcm.getNotificationSettings();
 
-    settings = await fcm.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      log('User granted permission');
-      final pushNotificationToken = await fcm.getToken();
-      if (pushNotificationToken != null) {
-        try {
-          await _auth.sendPushNotificationToken(pushNotificationToken);
-        } catch (e) {
-          log('Trying to update push notification token');
-          await _auth.updatePushNotificationToken(pushNotificationToken);
+    if (settings.authorizationStatus == AuthorizationStatus.notDetermined) {
+      settings = await fcm.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        log('User granted permission');
+        final pushNotificationToken = await fcm.getToken();
+        if (pushNotificationToken != null) {
+          try {
+            await _auth.sendPushNotificationToken(pushNotificationToken);
+          } catch (e) {
+            log('Trying to update push notification token');
+            await _auth.updatePushNotificationToken(pushNotificationToken);
+          }
         }
+      } else {
+        log('User declined or has not yet responded to the permission request');
       }
-    } else {
-      log('User declined or has not yet responded to the permission request');
     }
   }
 

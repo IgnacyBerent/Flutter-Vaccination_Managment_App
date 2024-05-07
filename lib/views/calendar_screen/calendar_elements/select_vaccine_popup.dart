@@ -41,7 +41,6 @@ void selectVaccinePopup(
                 if (confirm) {
                   await db.updateVaccinationStatus(
                     selectedRecord.id,
-                    selectedRecord.dose,
                   );
                   if (!context.mounted) return;
                   Navigator.of(context).pop();

@@ -83,18 +83,18 @@ class DatabaseApi {
     debugLogs(response.statusCode, 200);
   }
 
-  Future<void> updateVaccinationStatus(int vaccinationId, int dateIndex) async {
+  Future<void> updateVaccinationStatus(int vaccinationId) async {
     String? token = await jwt.getToken();
     if (token == null) {
       throw Exception('Token not found');
     }
     final response = await http.patch(
-      Uri.parse('$url/vaccinate/uservaccine/update_dose/$vaccinationId/'),
+      Uri.parse('$url/vaccinate/uservaccine/update_dose/$vaccinationId'),
       headers: {
         'Authorization': 'Bearer $token',
       },
     );
-    debugLogs(response.statusCode, 204);
+    debugLogs(response.statusCode, 200);
   }
 
   Future<void> rescheduleVaccinationDate(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/models/mappings/obligation_status_text_map.dart';
+import 'package:vaccination_managment_app/models/types/vaccine_interval_type.dart';
 import 'package:vaccination_managment_app/models/vaccine.dart';
 import 'package:vaccination_managment_app/styles/text_styles.dart';
 import 'package:vaccination_managment_app/views/vaccines_screen/vaccines_screen_elements/add_vaccine_popup.dart';
@@ -30,13 +31,15 @@ void vaccineDetails(BuildContext context, Vaccine vaccine) async {
               'Number of doses: ${vaccine.numberOfDoses}',
               style: descriptionTextStyle,
             ),
-            vaccine.intervals == null
+            vaccine.intervals == null ||
+                    vaccine.intervalType == VaccineIntervalType.oneTime
                 ? const Text('')
                 : Text(
                     'Intervals: ${vaccine.intervals!.join(', ')}',
                     style: descriptionTextStyle,
                   ),
-            vaccine.intervals == null
+            vaccine.intervals == null ||
+                    vaccine.intervalType == VaccineIntervalType.oneTime
                 ? const Text('')
                 : Text(
                     'Interval type: ${vaccine.intervalType.name}',
