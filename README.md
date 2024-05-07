@@ -1,3 +1,4 @@
+[![wakatime](https://wakatime.com/badge/github/IgnacyBerent/vaccination_managment_app.svg)](https://wakatime.com/badge/github/IgnacyBerent/vaccination_managment_app)
 # vaccination_managment_app
 
 A simple mobile application to help users manage their vaccination records. The
