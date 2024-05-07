@@ -1,5 +1,5 @@
 [![wakatime](https://wakatime.com/badge/github/IgnacyBerent/vaccination_managment_app.svg)](https://wakatime.com/badge/github/IgnacyBerent/vaccination_managment_app)
-# vaccination_managment_app
+# Vaccination Managment App
 
 A simple mobile application to help users manage their vaccination records. The
 application will allow users to track their vaccination history, schedule upcoming vaccinations, and receive reminders for upcoming doses. The application is connected to a django backend with a MySQL database to store and manage user vaccination data securely.
