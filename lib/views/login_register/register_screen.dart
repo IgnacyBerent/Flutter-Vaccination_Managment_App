@@ -7,6 +7,7 @@ import 'package:vaccination_managment_app/views/login_register/form_elements/for
 import 'package:vaccination_managment_app/views/login_register/form_elements/text_row.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/form_layout_template.dart';
+import 'package:vaccination_managment_app/widgets/popups/info_popup.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -56,21 +57,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (!context.mounted) {
           return;
         }
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: const Text('Registration Failed'),
-            content: Text(errorMessage!),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Okay'),
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-              ),
-            ],
-          ),
-        );
+        if (mounted) {
+          infoPopup(context, 'Registration Vailed!', errorMessage!);
+        }
       }
     }
   }

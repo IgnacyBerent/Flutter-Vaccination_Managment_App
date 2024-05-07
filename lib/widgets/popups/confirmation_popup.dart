@@ -10,6 +10,7 @@ Future<bool> confirmationPopup(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
+        backgroundColor: const Color(0xFFF8F8F8),
         title: Text(
           title,
           style: popupTextStyle,

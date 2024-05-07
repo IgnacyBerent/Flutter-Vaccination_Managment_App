@@ -49,7 +49,7 @@ class VaccineHistoryItem extends StatelessWidget {
                           vaccine.name,
                           style: popupTitleTextStyle,
                           softWrap: true,
-                          overflow: TextOverflow.fade,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           vaccine.status == VaccineStatus.pending

@@ -4,7 +4,7 @@ import 'package:vaccination_managment_app/styles/text_styles.dart';
 
 final myCalendarStyle = CalendarStyle(
   todayDecoration: const BoxDecoration(
-    color: Color(0xFF2F4858),
+    color: Color.fromARGB(255, 0, 121, 82),
     shape: BoxShape.circle,
   ),
   defaultTextStyle: descriptionTextStyle,

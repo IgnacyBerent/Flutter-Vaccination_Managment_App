@@ -25,7 +25,9 @@ class _VaccinationHistoryScreenState extends State<VaccinationHistoryScreen> {
 
   Future<void> _refreshVaccineReocrds() async {
     _vaccineRecords = await _db.fetchVaccineRecords();
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override

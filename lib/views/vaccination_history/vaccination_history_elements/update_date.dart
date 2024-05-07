@@ -4,6 +4,7 @@ import 'package:vaccination_managment_app/api/database_api.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 import 'package:vaccination_managment_app/widgets/popups/confirmation_popup.dart';
 import 'package:vaccination_managment_app/styles/text_styles.dart';
+import 'package:vaccination_managment_app/widgets/popups/snackbars.dart';
 
 Future<void> updateDate({
   required BuildContext context,
@@ -75,28 +76,45 @@ Future<void> updateDate({
                 width: 200,
               ),
               const SizedBox(height: 5),
-              MyIconButton(
-                buttonText: "Taken",
-                icon: Icons.done,
-                placement: "left",
-                onPressed: () async {
-                  final bool confirm = await confirmationPopup(
-                    context,
-                    "Confirm",
-                    'Do you want to mark this dose as taken?',
-                  );
-                  if (confirm) {
-                    await db.updateVaccinationStatus(
-                      vaccineId,
-                    );
-                    await refresh();
-                    if (!context.mounted) return;
-                    Navigator.of(context).pop();
-                  }
-                },
-                height: 35,
-                width: 200,
-              ),
+              doseEntry.key == vaccineDose - 1
+                  ? MyIconButton(
+                      buttonText: "Taken",
+                      icon: Icons.done,
+                      placement: "left",
+                      onPressed: () async {
+                        final bool confirm = await confirmationPopup(
+                          context,
+                          "Confirm",
+                          'Do you want to mark this dose as taken?',
+                        );
+                        if (confirm) {
+                          try {
+                            await db.updateVaccinationStatus(
+                              vaccineId,
+                            );
+                            await refresh();
+                            if (!context.mounted) return;
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            succesSnackBar(
+                              context,
+                              "Dose updated successfully!",
+                            );
+                          } catch (e) {
+                            if (!context.mounted) return;
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            failSnackBard(
+                              context,
+                              "Failed to update dose!",
+                            );
+                          }
+                        }
+                      },
+                      height: 35,
+                      width: 200,
+                    )
+                  : const SizedBox(),
               const SizedBox(height: 5),
               MyIconButton(
                 buttonText: "Cancel",

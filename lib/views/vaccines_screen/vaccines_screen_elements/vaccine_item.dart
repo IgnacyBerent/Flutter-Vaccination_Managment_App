@@ -6,15 +6,20 @@ import 'package:vaccination_managment_app/views/vaccines_screen/vaccines_screen_
 import 'package:vaccination_managment_app/widgets/card_container/card_container.dart';
 
 class VaccineItem extends StatelessWidget {
-  final Vaccine vaccine;
+  const VaccineItem({
+    super.key,
+    required this.vaccine,
+    required this.onVaccineAdd,
+  });
 
-  const VaccineItem(this.vaccine, {Key? key}) : super(key: key);
+  final Vaccine vaccine;
+  final Function() onVaccineAdd;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        vaccineDetails(context, vaccine);
+        vaccineDetails(context, vaccine, onVaccineAdd);
       },
       child: Padding(
         padding: const EdgeInsets.all(10),

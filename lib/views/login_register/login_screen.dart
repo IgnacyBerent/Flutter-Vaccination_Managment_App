@@ -8,6 +8,7 @@ import 'package:vaccination_managment_app/views/login_register/form_elements/tex
 import 'package:vaccination_managment_app/views/login_register/register_screen.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/form_layout_template.dart';
+import 'package:vaccination_managment_app/widgets/popups/info_popup.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -40,24 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
           errorMessage = e.toString();
         });
 
-        if (!context.mounted) {
-          return;
+        if (mounted) {
+          infoPopup(context, 'Login Vailed!', errorMessage!);
         }
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            title: const Text('Login Failed'),
-            content: Text(errorMessage!),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Okay'),
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-              ),
-            ],
-          ),
-        );
       }
     }
   }

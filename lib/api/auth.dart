@@ -23,7 +23,7 @@ class Authenticate {
       await jwt.saveTokens(responseBody);
     } else {
       if (response.statusCode == 401) {
-        throw Exception('Invalid credentials');
+        throw Exception('Invalid login or password');
       } else if (response.statusCode == 400) {
         throw Exception('Bad request');
       } else {

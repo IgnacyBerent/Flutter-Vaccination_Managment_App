@@ -5,7 +5,11 @@ import 'package:vaccination_managment_app/models/vaccine.dart';
 import 'package:vaccination_managment_app/styles/text_styles.dart';
 import 'package:vaccination_managment_app/views/vaccines_screen/vaccines_screen_elements/add_vaccine_popup.dart';
 
-void vaccineDetails(BuildContext context, Vaccine vaccine) async {
+void vaccineDetails(
+  BuildContext context,
+  Vaccine vaccine,
+  Function() onVaccineAdd,
+) async {
   return showDialog(
     context: context,
     builder: (context) {
@@ -50,7 +54,7 @@ void vaccineDetails(BuildContext context, Vaccine vaccine) async {
         actions: [
           TextButton(
             onPressed: () {
-              addVaccinePopup(context, vaccine.id);
+              addVaccinePopup(context, vaccine.id, onVaccineAdd);
             },
             child: Text(
               'SCHEDULE',

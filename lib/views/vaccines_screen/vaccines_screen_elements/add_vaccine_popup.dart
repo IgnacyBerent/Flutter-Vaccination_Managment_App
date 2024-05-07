@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vaccination_managment_app/api/database_api.dart';
 import 'package:vaccination_managment_app/styles/text_styles.dart';
+import 'package:vaccination_managment_app/widgets/popups/snackbars.dart';
 
-void addVaccinePopup(BuildContext context, int id) {
+void addVaccinePopup(BuildContext context, int id, Function() onVaccineAdd) {
   final db = DatabaseApi();
   final TextEditingController controller = TextEditingController();
   showDialog(
@@ -57,29 +58,16 @@ void addVaccinePopup(BuildContext context, int id) {
               );
               try {
                 await db.addVaccineRecord(id, inputDate);
+                onVaccineAdd();
                 if (!context.mounted) return;
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Vaccine added successfully!',
-                      style: descriptionTextStyle,
-                    ),
-                  ),
-                );
+                succesSnackBar(context, "Vaccine added successfully!");
               } catch (e) {
                 if (!context.mounted) return;
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Failed to add vaccine!',
-                      style: descriptionTextStyle,
-                    ),
-                  ),
-                );
+                failSnackBard(context, "Failed to add vaccine!");
               }
             },
           ),

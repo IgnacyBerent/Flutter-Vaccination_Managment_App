@@ -28,9 +28,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   Future<void> _refreshVaccineReocrds() async {
-    Navigator.of(context).pop();
     _vaccineRecords = await _db.fetchVaccineRecords();
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -96,7 +97,12 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 orElse: () => VaccineRecord.asNull(),
               );
               if (selectedRecord.id != -1) {
-                selectVaccinePopup(context, selectedDay, selectedRecord);
+                selectVaccinePopup(
+                  context,
+                  selectedDay,
+                  selectedRecord,
+                  _refreshVaccineReocrds,
+                );
               }
             },
           ),

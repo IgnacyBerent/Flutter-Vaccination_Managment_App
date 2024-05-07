@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:vaccination_managment_app/models/types/vaccine_status.dart';
 import 'package:vaccination_managment_app/models/vaccine_record.dart';
 import 'package:vaccination_managment_app/styles/text_styles.dart';
 
 Color doseStatusColor(int doseNumber, int vaccineDose) {
   if (doseNumber < vaccineDose - 1) {
-    return Colors.green;
+    return const Color.fromARGB(255, 0, 236, 162);
   } else if (doseNumber == vaccineDose - 1) {
-    return Colors.orange;
+    return const Color.fromARGB(255, 221, 133, 0);
   } else {
-    return Colors.red;
+    return const Color.fromARGB(255, 221, 0, 85);
   }
 }
 
@@ -18,7 +19,8 @@ CalendarBuilders getCalendarBuilders(List<VaccineRecord> vaccineRecords) {
     markerBuilder: (context, date, events) {
       final record = vaccineRecords.firstWhere(
         (record) =>
-            record.doseDates.any((doseDate) => isSameDay(doseDate, date)),
+            record.doseDates.any((doseDate) => isSameDay(doseDate, date)) &&
+            record.status != VaccineStatus.canceled,
         orElse: () => VaccineRecord.asNull(),
       );
 

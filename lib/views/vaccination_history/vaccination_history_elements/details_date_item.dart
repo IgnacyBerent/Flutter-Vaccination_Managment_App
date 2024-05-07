@@ -25,11 +25,11 @@ class DetailsDateItem extends StatelessWidget {
 
   Color doseStatusColor(int doseNumber) {
     if (doseNumber < vaccineDose - 1) {
-      return Colors.green;
+      return const Color.fromARGB(255, 0, 236, 162);
     } else if (doseNumber == vaccineDose - 1) {
-      return Colors.orange;
+      return const Color.fromARGB(255, 221, 133, 0);
     } else {
-      return Colors.red;
+      return const Color.fromARGB(255, 221, 0, 85);
     }
   }
 
@@ -50,7 +50,7 @@ class DetailsDateItem extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
-          color: Colors.grey[200],
+          color: const Color.fromARGB(50, 255, 255, 255),
           borderRadius: BorderRadius.circular(5.0),
         ),
         margin: const EdgeInsets.only(top: 10.0),

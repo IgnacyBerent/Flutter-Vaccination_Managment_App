@@ -39,13 +39,20 @@ class _VaccinesScreenState extends State<VaccinesScreen> {
     });
   }
 
+  void _popVaccine(Vaccine vaccine) {
+    setState(() {
+      vaccines.remove(vaccine);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GridView.count(
       crossAxisCount: 2,
       children: List.generate(vaccines.length, (index) {
         return VaccineItem(
-          vaccines[index],
+          vaccine: vaccines[index],
+          onVaccineAdd: () => _popVaccine(vaccines[index]),
         );
       }),
     );
