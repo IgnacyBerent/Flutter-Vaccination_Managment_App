@@ -8,16 +8,16 @@ import 'package:vaccination_managment_app/widgets/icons/round_app_icon.dart';
 import 'package:vaccination_managment_app/views/vaccination_history/vaccination_history_screen.dart';
 import 'package:vaccination_managment_app/widgets/buttons/my_icon_button.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key, required this.selectPage});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key, required this.selectPage});
 
   final Function(int) selectPage;
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   final Authenticate _auth = Authenticate();
 
   final butotnsSpacing = const SizedBox(height: 25);

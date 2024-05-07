@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaccination_managment_app/views/calendar_screen/calendar_screen.dart';
-import 'package:vaccination_managment_app/views/profile/profile_screen.dart';
+import 'package:vaccination_managment_app/views/home/home_screen.dart';
 import 'package:vaccination_managment_app/views/vaccines_screen/vaccines_screen.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/background_image.dart';
 import 'package:vaccination_managment_app/widgets/layout_template/layout_template_elements/blur_effect.dart';
@@ -23,15 +23,15 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = ProfileScreen(selectPage: selectPage);
+    Widget activePage = HomeScreen(selectPage: selectPage);
     String activePageTitle = 'Your profile';
 
     if (_selectedPageIndex == 2) {
       activePage = const VaccinesScreen();
       activePageTitle = 'Available Vaccines';
     } else if (_selectedPageIndex == 1) {
-      activePage = ProfileScreen(selectPage: selectPage);
-      activePageTitle = 'My Profile';
+      activePage = HomeScreen(selectPage: selectPage);
+      activePageTitle = 'Home';
     } else if (_selectedPageIndex == 0) {
       activePage = const CalendarScreen();
       activePageTitle = 'My Calendar';
