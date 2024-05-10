@@ -68,7 +68,7 @@ class _NavigatorLayoutTemplateState extends State<NavigatorLayoutTemplate> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'Profile',
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.vaccines),
