@@ -4,6 +4,9 @@
 A simple mobile application to help users manage their vaccination records. The
 application will allow users to track their vaccination history, schedule upcoming vaccinations, and receive reminders for upcoming doses. The application is connected to a django backend with a MySQL database to store and manage user vaccination data securely.
 
+Backend Repository:
+https://github.com/neuropython/Vaccinate_managment_backend
+
 ## Views and Functionalites
 
 1. **Login and Registration**: Users can create an account and login to the application. The application will store user data securely in the database. After successful login acces and refresh tokens are stored in the application. The application every 3 seconds checks if the access token is still valid and if not it refreshes it. If refresh token is expired user is logged out and has to log in again.
